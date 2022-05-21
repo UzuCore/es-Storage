@@ -4022,6 +4022,9 @@ msgstr "게임 목록 업데이트"
 msgid "UPDATING ANBERNIC"
 msgstr "엔버닉 업데이트 중"
 
+msgid "VIEW ANBERNIC MANUAL"
+msgstr "엔버닉 메뉴얼 보기"
+
 msgid "STREAMING SETTINGS"
 msgstr "스트리밍 설정"
 
@@ -4036,3 +4039,12 @@ msgstr "문라이트 초기화"
 
 msgid "MOONLIGHT CLEAN"
 msgstr "문라이트 청소"
+
+msgid "RESTART BLUETOOTH"
+msgstr "블루투스 재시작"
+
+msgid "STOP BLUETOOTH"
+msgstr "블루투스 정지"
+
+msgid "CHECK BIOSES BEFORE RUNNING A GAME"
+msgstr ""
