@@ -4047,4 +4047,4 @@ msgid "STOP BLUETOOTH"
 msgstr "블루투스 정지"
 
 msgid "CHECK BIOSES BEFORE RUNNING A GAME"
-msgstr ""
+msgstr "게임 실행전 바이오스 확인"
