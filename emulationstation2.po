@@ -476,7 +476,7 @@ msgid "SCANNING BLUETOOTH"
 msgstr "블루투스 검색"
 
 msgid "Searching for devices..."
-msgstr "컨트롤러를 검색 중입니다."
+msgstr "컨트롤러를 검색 중입니다..."
 
 msgid "BLUETOOTH SCAN IS ALREADY RUNNING."
 msgstr "블루투스 검색이 이미 실행중입니다."
@@ -1067,7 +1067,7 @@ msgid "SLIDESHOW SCREENSAVER SETTINGS"
 msgstr "슬라이스쇼 화면보호기 설정"
 
 msgid "IMAGE DURATION (SECS)"
-msgstr "다음 시간 후 이미지 변경(초)"
+msgstr "이미지 지연 (초)"
 
 msgid "STRETCH IMAGES"
 msgstr "이미지 늘리기"
@@ -2010,7 +2010,7 @@ msgid "REWIND"
 msgstr "되감기"
 
 msgid "INTEGER SCALING (PIXEL PERFECT)"
-msgstr "정수 스케일링 (픽셀 일치)"
+msgstr "정수 스케일링 (픽셀 퍼펙트)"
 
 msgid "INTEGER SCALE OVERSCALE"
 msgstr "정수 스케일 오버스케일"
@@ -3025,7 +3025,7 @@ msgid "UNINSTALL ADDED TO QUEUE"
 msgstr "제거 작업이 대기열에 추가됨"
 
 msgid "SWAP VIDEO AFTER (SECS)"
-msgstr "다음 시간 후 비디오 교체(초)"
+msgstr "비디오 교체 이후 (초)"
 
 msgid "SHOW GAME INFO ON SCREENSAVER"
 msgstr "화면보호기에 게임 정보를 보여줍니다"
@@ -3333,7 +3333,7 @@ msgid "USER DECIDES ON CONFLICTS"
 msgstr "직접 선택"
 
 msgid "SCRAPING FINISHED. REFRESH UPDATE GAME LISTS TO APPLY CHANGES."
-msgstr "스크랩이 완료되었습니다. 변경 사항을 적용하려면 게임 목록을 새로 고치십시오."
+msgstr "스크랩 완료. 변경 사항을 적용하려면 게임 목록을 새로 고치십시오."
 
 msgid "Editing the '%s' Collection. Add/remove games with Y."
 msgstr "'%s' 컬렉션 편집하기. Y 버튼으로 게임을 추가/삭제 합니다."
@@ -3437,7 +3437,7 @@ msgid ""
 msgstr ""
 "경고: 장치를 오버클럭하면 안정성 문제가 발생하거나 하드웨어가 손상될 수 있습니다!\n"
 "\n"
-"특정 오버클럭을 사용하는 동안 조용한 쿨링 프로필을 사용하면 패닉 재부팅이 발생할 수 있습니다!\n"
+"특정 오버클럭을 사용하는 동안 조용한 쿨링 프로필을 사용하면 패닉 리부팅이 발생할 수 있습니다!\n"
 "\n"
 "JELOS는 이러한 설정을 사용하여 발생할 수 있는 손상에 대해 책임지지 않습니다!\n"
 "\n"
@@ -3665,7 +3665,7 @@ msgid ""
 msgstr "리퀘스트 타이밍을 벗어나지 마십시오. G-Sync, FreeSync, HDMI 2.1 VRR. "
 
 msgid "EMULATOR IS MISSING"
-msgstr "에뮬레이터가 누락됨"
+msgstr "누락된 에뮬레이터"
 
 msgid "FILTERS"
 msgstr "필터"
@@ -3887,3 +3887,152 @@ msgstr "앵콜 모드"
 
 msgid "REBOOT TO APPLY"
 msgstr "적용하기 위해 재부팅"
+
+
+
+
+### 엔버닉
+
+msgid "A REBOOT OF THE SYSTEM IS REQUIRED TO COMPLETE THE OPERATION"
+msgstr "작업을 완료하려면 시스템을 재시작해야 합니다"
+
+msgid "ADD/REMOVE GAMES TO THIS GAME COLLECTION"
+msgstr "이 게임 컬렉션에 게임 추가/제거"
+
+msgid "ARE YOU SURE ?"
+msgstr "확실합니까?"
+
+msgid "ARE YOU SURE YOU WANT TO FORMAT THIS DRIVE ?"
+msgstr "이 드라이브를 포맷하시겠습니까?"
+
+msgid "ASYNC IMAGES LOADING"
+msgstr "비동기 이미지 불러오는 중"
+
+msgid "BLUETOOTH SCANNING IS ALREADY RUNNING."
+msgstr "블루투스 검색이 이미 실행 중입니다."
+
+msgid "CONFIGURE A CONTROLLER"
+msgstr "컨트롤러 구성"
+
+msgid "CONTROLLERS LINKS HAVE BEEN DELETED."
+msgstr "컨트롤러와의 연결이 삭제되었습니다."
+
+msgid "CONTROLLERS SETTINGS"
+msgstr "컨트롤러 설정"
+
+msgid "CREATE A SUPPORT FILE ?"
+msgstr "지원 파일을 만드시겠습니까?"
+
+msgid "CUSTOM IMAGE DIR"
+msgstr "커스텀 이미지 디렉토리"
+
+msgid "CUSTOM IMAGE DIR RECURSIVE"
+msgstr "커스텀 이미지 디렉토리 재귀"
+
+msgid "ENABLE VIDEO AUDIO"
+msgstr "비디오 오디오 활성화"
+
+msgid "GAME HASHING IS RUNNING. DO YOU WANT TO STOP IT ?"
+msgstr "게임 해싱이 실행 중입니다. 중지하시겠습니까?"
+
+msgid "HASHING GAMES"
+msgstr "해싱 게임"
+
+msgid "HOW MANY SECONDS FOR SONG TITLES"
+msgstr "노래 제목 표시 시간"
+
+msgid "INDEX MISSING GAMES"
+msgstr "색인 누락된 게임"
+
+msgid "INSTALL ANBERNIC"
+msgstr "엔버닉 설치"
+
+msgid "INSTALL ANBERNIC ON A NEW DISK"
+msgstr "새로운 디스크에 엔버닉 설치"
+
+msgid "INTEGER SCALE (PIXEL PERFECT)"
+msgstr "정수 스케일 (픽셀 퍼펙트)"
+
+msgid "KODI AT START"
+msgstr "시작 시 KODI 실행"
+
+msgid "MISSING BIOS"
+msgstr "누락된 바이오스"
+
+msgid "NO WIFI NETWORKS FOUND"
+msgstr "WIFI 네트워크를 찾을 수 없음"
+
+msgid "ON SCREEN KEYBOARD"
+msgstr "화상 키보드"
+
+msgid "OPTIMIZE VIDEO VRAM USE"
+msgstr "비디오 VRAM 사용 최적화"
+
+msgid "PLAY THEME MUSICS"
+msgstr "테마 음악 재생"
+
+msgid "REALLY SHUTDOWN WITHOUT SAVING METADATAS?"
+msgstr "게임 정보를 저장하지 않고 시스템을 종료하시겠습니까?"
+
+msgid "REALLY UPDATE GAMES LISTS ?"
+msgstr "정말로 게임 목록을 업데이트하시겠습니까?"
+
+msgid "REBOOT SYSTEM TO APPLY"
+msgstr "적용하려면 시스템 재시작"
+
+msgid "REDETECT GAMES LANG/REGION"
+msgstr "게임 언어/지역 재감지"
+
+msgid "REINDEX ALL GAMES"
+msgstr "모든 게임 다시 색인"
+
+msgid "SCRAPING FINISHED. REFRESH UPDATE GAMES LISTS TO APPLY CHANGES."
+msgstr "스크랩 완료. 변경 사항을 적용하려면 게임 목록을 새로 고치십시오."
+
+msgid "SCRAPING IS RUNNING. DO YOU WANT TO STOP IT ?"
+msgstr "스크랩이 진행중입니다. 중지하시겠습니까?"
+
+msgid "SCREENSAVER AFTER"
+msgstr "화면 보호기 작동"
+
+msgid "SCREENSAVER BEHAVIOR"
+msgstr "화면 보호기 행동"
+
+msgid "SEARCHING WIFI NETWORKS"
+msgstr "WIFI를 검색 중입니다"
+
+msgid "SHADERS SET"
+msgstr "셰이더 설정"
+
+msgid "SHOW FILENAMES IN LISTS"
+msgstr "목록에 파일이름 표시"
+
+msgid "SWAP IMAGE AFTER (SECS)"
+msgstr "이미지 교체 이후 (초)"
+
+msgid "Searching controllers..."
+msgstr "컨트롤러를 검색 중입니다..."
+
+msgid "TRANSITION STYLE"
+msgstr "화면 전환 형식"
+
+msgid "UPDATE GAMES LISTS"
+msgstr "게임 목록 업데이트"
+
+msgid "UPDATING ANBERNIC"
+msgstr "엔버닉 업데이트 중"
+
+msgid "STREAMING SETTINGS"
+msgstr "스트리밍 설정"
+
+msgid "MOONLIGHT LIST"
+msgstr "문라이트 목록"
+
+msgid "MOONLIGHT PAIR"
+msgstr "문라이트 페어링"
+
+msgid "MOONLIGHT INIT"
+msgstr "문라이트 초기화"
+
+msgid "MOONLIGHT CLEAN"
+msgstr "문라이트 청소"
