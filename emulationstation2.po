@@ -3198,7 +3198,7 @@ msgstr ""
 "버튼 이름은 슈퍼패미콤 컨트롤러 기준입니다. "
 
 msgid "INPUT P%i"
-msgstr "입력 P%i"
+msgstr "플레이어 %i 컨트롤러"
 
 msgid "YOU MUST APPLY THE THEME BEFORE EDIT CONFIGURATION"
 msgstr "설정을 변경하기전에 테마를 적용해야 합니다"
