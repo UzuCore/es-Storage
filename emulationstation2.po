@@ -3942,7 +3942,7 @@ msgid "HOW MANY SECONDS FOR SONG TITLES"
 msgstr "노래 제목 표시 시간"
 
 msgid "INDEX MISSING GAMES"
-msgstr "색인 누락된 게임"
+msgstr "누락된 게임 색인"
 
 msgid "INSTALL ANBERNIC"
 msgstr "엔버닉 설치"
@@ -4048,3 +4048,9 @@ msgstr "블루투스 정지"
 
 msgid "CHECK BIOSES BEFORE RUNNING A GAME"
 msgstr "게임 실행전 바이오스 확인"
+
+msgid "CLEAN GAMELISTS & REMOVE UNUSED MEDIAS"
+msgstr "게임 목록 정리 & 미사용 미디어 삭제"
+
+msgid "SWITCH A/B BUTTONS IN EMULATIONSTATION"
+msgstr "에뮬레이션스테이션에서 A/B 버튼 교체"
