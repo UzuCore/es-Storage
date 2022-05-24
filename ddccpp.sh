@@ -1,31 +1,33 @@
 #!/bin/bash
 
-CMD=""
-
 if [ $HOSTNAME == "BATOCERA" ]; then
 	ESOS="batocera"
-	THEME_PATH="/userdata/themes"
 	LC_PATH="/usr/share/locale/ko/LC_MESSAGES"
-	TEMP=""
-	CMD=("" "")
+	THEME_PATH="/userdata/themes"
+	BIOS_PATH="/userdata/bios"
+	RES_PATH="/usr/share/emulationstation/resources"
 
 elif [ $HOSTNAME == "ANBERNIC" ]; then
 	ESOS="anbernic"
-	THEME_PATH="/userdata/themes"
 	LC_PATH="/usr/share/locale/ko/LC_MESSAGES"
-	CMD=("" "")
+	THEME_PATH="/userdata/themes"
+	BIOS_PATH="/userdata/bios"
+	RES_PATH="/usr/share/emulationstation/resources"
 
 elif cat /etc/*release | grep AmberELEC >/dev/null; then
 	ESOS="amberelec"
-	THEME_PATH="/storage/.config/emulationstation/themes"
 	LC_PATH="/storage/.config/emulationstation/locale/ko/LC_MESSAGES"
-	CMD=("" "")
+	THEME_PATH="/storage/.config/emulationstation/themes"
+	BIOS_PATH="/storage/roms/bios"
+	RES_PATH="/storage/.config/emulationstation/resources"
 
 elif cat /etc/*release | grep JELOS >/dev/null; then
 	ESOS="jelos"
-	THEME_PATH="/storage/.config/emulationstation/themes"
 	LC_PATH="/storage/.config/emulationstation/locale/ko/LC_MESSAGES"
-	CMD=("" "")
+	THEME_PATH="/storage/.config/emulationstation/themes"
+	BIOS_PATH="/storage/roms/bios"
+	RES_PATH="/storage/.config/emulationstation/resources"
+
 else
 	echo "This OS is Unknown."
 	exit 0
@@ -103,11 +105,13 @@ if ping -q -c 1 -W 1 google.com >/dev/null; then
 
 			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/emulationstation2.po
 			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/emulationstation2.mo
+			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/opensans_hebrew_condensed_light.ttf
+			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/opensans_hebrew_condensed_regular.ttf
 			cp -f ./$TEMP/emulationstation2.* $LC_PATH/
+			cp -f ./$TEMP/opensans*.ttf $RES_PATH/
 
 			if [ $HOSTNAME == "BATOCERA" ]; then
 				batocera-save-overlay
-			
 			elif [ $HOSTNAME == "ANBERNIC" ]; then
 				wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/notice.pdf
 				cp -f ./$TEMP/notice.pdf /usr/share/anbernic/doc/notice.pdf
@@ -134,6 +138,7 @@ if ping -q -c 1 -W 1 google.com >/dev/null; then
 				if [ ! -d "/userdata/system/configs/retroarch/assets" ]; then
 					mkdir -p /userdata/system/configs/retroarch/assets
 				fi
+
 				cp -f ./$TEMP/font.ttf /userdata/system/configs/retroarch/assets/
 
 				if cat $LCONF | grep global.retroarch.video_font_path >/dev/null; then
@@ -152,6 +157,7 @@ if ping -q -c 1 -W 1 google.com >/dev/null; then
 				-e 's/user_language.*/user_language = \"10\"/g' \
 				-e 's/menu_driver.*/menu_driver = \"xmb\"/g' \
 				/userdata/system/configs/retroarch/retroarchcustom.cfg
+
 			else
 				if [ ! -f "/storage/.config/retroarch/retroarch.cfg" ]; then
 					echo "ERROR: Failed to find Retroarch Config."
@@ -233,11 +239,6 @@ done
 			#Install Anbernic Epic noir OE theme
 
 			THEME_NAME="es-theme-anbernic-dc"
-			if [ $HOSTNAME == "BATOCERA" ] || [ $HOSTNAME == "ANBERNIC" ]; then
-				THEME_PATH="/userdata/themes"
-			else
-				THEME_PATH="/storage/.config/emulationstation/themes"
-			fi
 			
 			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-theme-anbernic-dc/archive/refs/heads/main.zip
 			unzip ./$TEMP/main.zip -d ./$TEMP
@@ -274,12 +275,6 @@ done
 
 		B)
 			#Install Minimal BIOS pack
-
-			if [ $HOSTNAME == "BATOCERA" ] || [ $HOSTNAME == "ANBERNIC" ]; then
-				BIOS_PATH="/userdata/bios"
-			else
-				BIOS_PATH="/storage/roms/bios"
-			fi
 
 			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/minimal-Bios/archive/refs/heads/main.zip
 			unzip ./$TEMP/main.zip -d ./$TEMP
