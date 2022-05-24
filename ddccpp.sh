@@ -194,7 +194,37 @@ if ping -q -c 1 -W 1 google.com >/dev/null; then
 
 		3)
 			#Apply Retroarch Vertical arcade settings
+			
+			CORE=("FinalBurn Neo"
+				"FB Alpha"
+				"FB Alpha 2012"
+				"MAME"
+				"MAME 2000"
+				"MAME 2003-Plus"
+				"MAME 2010"
+				"MAME 2015"
+			)
+			
+			for ((i = 0; i < ${#CORE[@]}; i++))
+			do
+				SS="off"
+				if [ $i -eq 0 ]; then
+					SS="on"
+				fi
 
+				ITEM+=( "$((i+1))" "${CORE[$i]}" "${SS}" )
+			done
+
+			MENU="Select the core to use from the following options"
+			SEL=$(dialog --clear \
+				--backtitle "$BACKTITLE" \
+				--title "$TITLE" \
+				--checklist "$MENU" \
+				$HEIGHT $WIDTH $SEL_HEIGHT \
+				"${ITEM[@]}" \
+				2>&1 >/dev/tty)
+
+clear
 echo -n -e "Creating config file"
 for i in ${VTC[@]}
 do
@@ -235,6 +265,26 @@ input_remap_port_p4 = "3"
 input_remap_port_p5 = "4"
 EOF
 done
+				
+			for i in ${SEL[@]}
+			do
+				TCORE=${CORE[$((i-1))]}
+				TCORE_CFG="/storage/roms/gamedata/retroarch/config"
+				TCORE_RMP="/storage/roms/gamedata/remappings"
+
+				if [ ! -d "$TCORE_CFG/TCORE" ]; then
+					mkdir -p "$TCORE_CFG/$TCORE"
+				fi
+				if [ ! -d "$TCORE_RMP/TCORE" ]; then
+					mkdir -p "$TCORE_RMP/$TCORE"
+				fi
+				
+				echo -n -e "\nCopying config file to $TCORE..."
+				cp -f ./$TEMP/*.cfg "$TCORE_CFG/$TCORE/"
+				echo -n -e "\nCopying remapping file to $TCORE..."
+				cp -f ./$TEMP/*.rmp "$TCORE_RMP/$TCORE/"
+
+			done
 
 			dcContinue
 			;;
