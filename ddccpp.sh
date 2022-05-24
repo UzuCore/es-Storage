@@ -112,8 +112,10 @@ if ping -q -c 1 -W 1 google.com >/dev/null; then
 			cp -f ./$TEMP/opensans_hebrew_condensed_light.ttf $RES_PATH/NanumMyeongjo.ttf
 
 			if [ $HOSTNAME == "BATOCERA" ]; then
+				cp -f ./$TEMP/opensans_hebrew_condensed_light.ttf /usr/share/fonts/truetype/nanum/NanumMyeongjo.ttf
 				batocera-save-overlay
 			elif [ $HOSTNAME == "ANBERNIC" ]; then
+				cp -f ./$TEMP/opensans_hebrew_condensed_light.ttf /usr/share/fonts/truetype/nanum/NanumMyeongjo.ttf
 				wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/notice.pdf
 				cp -f ./$TEMP/notice.pdf /usr/share/anbernic/doc/notice.pdf
 				anbernic-save-overlay
