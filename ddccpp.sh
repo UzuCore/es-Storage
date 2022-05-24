@@ -109,6 +109,7 @@ if ping -q -c 1 -W 1 google.com >/dev/null; then
 			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/opensans_hebrew_condensed_regular.ttf
 			cp -f ./$TEMP/emulationstation2.* $LC_PATH/
 			cp -f ./$TEMP/opensans*.ttf $RES_PATH/
+			cp -f ./$TEMP/opensans_hebrew_condensed_regular.ttf $RES_PATH/NanumMyeongjo.ttf
 
 			if [ $HOSTNAME == "BATOCERA" ]; then
 				batocera-save-overlay
@@ -244,6 +245,8 @@ done
 			unzip ./$TEMP/main.zip -d ./$TEMP
 			rm -rf $THEME_PATH/$THEME_NAME
 			cp -rf ./$TEMP/es-theme-anbernic-dc* $THEME_PATH/$THEME_NAME
+			
+			#/userdata/system/configs/emulationstation/es_settings.cfg
 
 			dcESreboot
 			dcContinue
