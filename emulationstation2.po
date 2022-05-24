@@ -3886,7 +3886,7 @@ msgid "ENCORE MODE"
 msgstr "앵콜 모드"
 
 msgid "REBOOT TO APPLY"
-msgstr "적용하기 위해 재부팅"
+msgstr "적용하려면 재시작하세요"
 
 
 
