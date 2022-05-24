@@ -32,9 +32,9 @@ else
 fi
 
 TEMP="ddccpp"
-HEIGHT=15
+HEIGHT=18
 WIDTH=60
-SEL_HEIGHT=9
+SEL_HEIGHT=12
 BACKTITLE="DDCCPP 1.0.1 - ${ESOS^^}"
 TITLE=""
 MENU="Choose one of the following options"
@@ -76,7 +76,8 @@ if ping -q -c 1 -W 1 google.com >/dev/null; then
 		2 "Apply Retroarch UI Korean patch"
 		3 "Apply Retroarch Vertical arcade settings"
 		4 "Install Anbernic Epic noir OE theme"
-		5 "Install PPSSPP Korean font"
+		5 "Install PPSSPP Patched font"
+		6 "Restore PPSSPP Original font"
 		B "Install Minimal BIOS pack"
 		E "Restart EmulationStation"
 		R "Reboot System"
@@ -248,14 +249,37 @@ done
 			;;
 
 		5)
-			#Install PPSSPP Korean font
+			#Install PPSSPP Patched font
+			
+			#/storage/roms/gamedata/ppsspp/assets/flash0/font <- amberelec
+			#/storage/.config/ppsspp/assets/flash0/font <-jelos
+			#/usr/share/ppsspp/PPSSPP/flash0/font <- batocera
+
+			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/jpn0.pgf
+
+			dcContinue
+			;;
+		
+		6)
+			#Restore PPSSPP Original font
+			
+			#/storage/roms/gamedata/ppsspp/assets/flash0/font <- amberelec
+			#/storage/.config/ppsspp/assets/flash0/font <-jelos
+			#/usr/share/ppsspp/PPSSPP/flash0/font <- batocera
+
+			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/jpn0.pgf
+
 			dcContinue
 			;;
 
 		B)
 			#Install Minimal BIOS pack
 
-			BIOS_PATH="/storage/roms/bios"
+			if [ $HOSTNAME == "BATOCERA" ] || [ $HOSTNAME == "ANBERNIC" ]; then
+				BIOS_PATH="/userdata/bios"
+			else
+				BIOS_PATH="/storage/roms/bios"
+			fi
 
 			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/minimal-Bios/archive/refs/heads/main.zip
 			unzip ./$TEMP/main.zip -d ./$TEMP
