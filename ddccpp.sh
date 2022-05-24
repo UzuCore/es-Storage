@@ -248,7 +248,11 @@ done
 			rm -rf $THEME_PATH/$THEME_NAME
 			cp -rf ./$TEMP/es-theme-anbernic-dc* $THEME_PATH/$THEME_NAME
 			
-			#/userdata/system/configs/emulationstation/es_settings.cfg
+			if [ $HOSTNAME == "BATOCERA" ] || [ $HOSTNAME == "ANBERNIC" ]; then
+				sed -i "s/name=\"ThemeSet\" value=\".*\"/name=\"ThemeSet\" value=\"$THEME_NAME\"/g" /userdata/system/configs/emulationstation/es_settings.cfg
+			else
+				sed -i "s/name=\"ThemeSet\" value=\".*\"/name=\"ThemeSet\" value=\"$THEME_NAME\"/g" /storage/.config/emulationstation/es_settings.cfg
+			fi
 
 			dcESreboot
 			dcContinue
