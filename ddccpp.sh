@@ -16,6 +16,14 @@ elif [ $HOSTNAME == "ANBERNIC" ]; then
 	RES_PATH="/usr/share/emulationstation/resources"
 	PSPFONT_PATH="/usr/share/ppsspp/PPSSPP/flash0/font"
 
+elif [ $HOSTNAME == "EMUELEC" ]; then
+	ESOS="emuelec"
+	LC_PATH="/storage/.config/emuelec/configs/locale/ko/LC_MESSAGES"
+	THEME_PATH="/storage/.config/emulationstation/themes"
+	BIOS_PATH="/storage/roms/bios"
+	RES_PATH="/storage/.config/emulationstation/resources"
+	PSPFONT_PATH="/storage/.config/ppsspp/assets/flash0/font"
+
 elif cat /etc/*release | grep AmberELEC >/dev/null; then
 	ESOS="amberelec"
 	LC_PATH="/storage/.config/emulationstation/locale/ko/LC_MESSAGES"
@@ -108,6 +116,11 @@ if ping -q -c 1 -W 1 google.com >/dev/null; then
 				exit 0
 			fi
 
+			if [ $HOSTNAME == "EMUELEC" ]; then
+				echo "This operating system is not supported."
+				dcContinue
+			fi
+			
 			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/emulationstation2.po
 			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/emulationstation2.mo
 			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/opensans_hebrew_condensed_light.ttf
@@ -133,6 +146,11 @@ if ping -q -c 1 -W 1 google.com >/dev/null; then
 
 		2)
 			#Apply Retroarch UI Korean patch
+
+			if [ $HOSTNAME == "EMUELEC" ]; then
+				echo "This operating system is not supported."
+				dcContinue
+			fi
 
 			if [ $HOSTNAME == "BATOCERA" ] || [ $HOSTNAME == "ANBERNIC" ]; then
 				LCONF="/userdata/system/$ESOS.conf"
@@ -282,7 +300,7 @@ done
 				elif [ $ESOS == "amberelec" ]; then
 					TCORE_CFG="/storage/roms/gamedata/retroarch/config"
 					TCORE_RMP="/storage/roms/gamedata/remappings"
-				elif [ $ESOS == "jelos" ]; then
+				elif [ $ESOS == "jelos" ] || [ $HOSTNAME == "EMUELEC" ]; then
 					TCORE_CFG="/storage/.config/retroarch/config"
 					TCORE_RMP="/storage/remappings"
 				fi
@@ -366,6 +384,8 @@ done
 		
 		7)
 			#Change all platform integer scales
+			
+			#emuelec "/storage/.config/emuelec/configs/emuelec.conf"
 
 			if [ $ESOS != "amberelec" ] && [ $ESOS != "jelos" ]; then
 				echo "This operating system is not supported."
