@@ -275,10 +275,10 @@ done
 				if [ $HOSTNAME == "BATOCERA" ] || [ $HOSTNAME == "ANBERNIC" ]; then
 					TCORE_CFG="/userdata/system/.config/retroarch/config"
 					TCORE_RMP="/userdata/system/.config/retroarch/config/remaps"
-				elif [ $ESOS != "amberelec" ]; then
+				elif [ $ESOS == "amberelec" ]; then
 					TCORE_CFG="/storage/roms/gamedata/retroarch/config"
 					TCORE_RMP="/storage/roms/gamedata/remappings"
-				elif [ $ESOS != "jelos" ]; then
+				elif [ $ESOS == "jelos" ]; then
 					TCORE_CFG="/storage/.config/retroarch/config"
 					TCORE_RMP="/storage/remappings"
 				fi
