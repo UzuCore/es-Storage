@@ -359,6 +359,11 @@ done
 				SCONF="/storage/.config/system/configs/system.cfg"
 			fi
 
+			if [ ! -f $SCONF ]; then
+				echo "ERROR: Failed to find System Config."
+				exit 0
+			fi
+
 			OPTIONS=(1 "ON"
 				2 "OFF")
 
@@ -387,6 +392,11 @@ done
 		B)
 			#Install Minimal Support pack
 
+			if [ ! -d $BIOS_PATH ]; then
+				echo "ERROR: Failed to find Bios directory."
+				exit 0
+			fi
+
 			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/minimal-Bios/archive/refs/heads/main.zip
 			unzip ./$TEMP/main.zip -d ./$TEMP
 			cp -rf ./$TEMP/minimal-Bios-main/* $BIOS_PATH
@@ -411,6 +421,7 @@ done
 
 		Q)
 			#Quit
+			
 			echo "Bye~:)"
 			;;
 
