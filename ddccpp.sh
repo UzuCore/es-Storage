@@ -6,6 +6,7 @@ if [ $HOSTNAME == "BATOCERA" ]; then
 	THEME_PATH="/userdata/themes"
 	BIOS_PATH="/userdata/bios"
 	RES_PATH="/usr/share/emulationstation/resources"
+	PSPFONT_PATH="/usr/share/ppsspp/PPSSPP/flash0/font"
 
 elif [ $HOSTNAME == "ANBERNIC" ]; then
 	ESOS="anbernic"
@@ -13,6 +14,7 @@ elif [ $HOSTNAME == "ANBERNIC" ]; then
 	THEME_PATH="/userdata/themes"
 	BIOS_PATH="/userdata/bios"
 	RES_PATH="/usr/share/emulationstation/resources"
+	PSPFONT_PATH="/usr/share/ppsspp/PPSSPP/flash0/font"
 
 elif cat /etc/*release | grep AmberELEC >/dev/null; then
 	ESOS="amberelec"
@@ -20,6 +22,7 @@ elif cat /etc/*release | grep AmberELEC >/dev/null; then
 	THEME_PATH="/storage/.config/emulationstation/themes"
 	BIOS_PATH="/storage/roms/bios"
 	RES_PATH="/storage/.config/emulationstation/resources"
+	PSPFONT_PATH="/storage/roms/gamedata/ppsspp/assets/flash0/font"
 
 elif cat /etc/*release | grep JELOS >/dev/null; then
 	ESOS="jelos"
@@ -27,6 +30,7 @@ elif cat /etc/*release | grep JELOS >/dev/null; then
 	THEME_PATH="/storage/.config/emulationstation/themes"
 	BIOS_PATH="/storage/roms/bios"
 	RES_PATH="/storage/.config/emulationstation/resources"
+	PSPFONT_PATH="/storage/.config/ppsspp/assets/flash0/font"
 
 else
 	echo "This operating system is not supported."
@@ -300,8 +304,14 @@ done
 			echo -e "\nProcessing complete."
 			dcContinue
 			;;
+
 		4)
 			#Install Anbernic Epic noir OE theme
+			
+			if [ ! -d $THEME_PATH ]; then
+				echo "ERROR: Failed to find Themes directory."
+				exit 0
+			fi
 
 			THEME_NAME="es-theme-anbernic-dc"
 			
@@ -324,24 +334,33 @@ done
 		5)
 			#Install PPSSPP Patched font
 			
-			#/storage/roms/gamedata/ppsspp/assets/flash0/font <- amberelec
-			#/storage/.config/ppsspp/assets/flash0/font <-jelos
-			#/usr/share/ppsspp/PPSSPP/flash0/font <- batocera
+			if [ ! -d $PSPFONT_PATH ]; then
+				echo "ERROR: Failed to find Font directory."
+				exit 0
+			fi
 
+			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/kr0.pgf
 			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/jpn0.pgf
+			cp -f ./$TEMP/*.pgf $PSPFONT_PATH/
 
+			echo -e "\nProcessing complete."
 			dcContinue
 			;;
 		
 		6)
 			#Restore PPSSPP Original font
 			
-			#/storage/roms/gamedata/ppsspp/assets/flash0/font <- amberelec
-			#/storage/.config/ppsspp/assets/flash0/font <-jelos
-			#/usr/share/ppsspp/PPSSPP/flash0/font <- batocera
-
-			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/jpn0.pgf
-
+			if [ ! -d $PSPFONT_PATH ]; then
+				echo "ERROR: Failed to find Font directory."
+				exit 0
+			fi
+			
+			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/kr0.original.pgf
+			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/jpn0.original.pgf
+			cp -f ./$TEMP/kr0.original.pgf $PSPFONT_PATH/kr0.pgf
+			cp -f ./$TEMP/jpn0.original.pgf $PSPFONT_PATH/jpn0.pgf
+			
+			echo -e "\nProcessing complete."
 			dcContinue
 			;;
 		
