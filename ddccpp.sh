@@ -407,7 +407,7 @@ done
 		
 		if [ $HOSTNAME == "BATOCERA" ] || [ $HOSTNAME == "ANBERNIC" ]; then
 			sed -i 's/name="ThemeSet" value=".*"/name="ThemeSet" value="es-theme-anbernic-dc"/g' /userdata/system/configs/emulationstation/es_settings.cfg
-		elif [ $ESOS != "arkos" ]; then
+		elif [ $ESOS == "arkos" ]; then
 			sed -i 's/name="ThemeSet" value=".*"/name="ThemeSet" value="es-theme-anbernic-dc"/g' /home/ark/.emulationstation/es_settings.cfg
 		else
 			sed -i 's/name="ThemeSet" value=".*"/name="ThemeSet" value="es-theme-anbernic-dc"/g' /storage/.config/emulationstation/es_settings.cfg
