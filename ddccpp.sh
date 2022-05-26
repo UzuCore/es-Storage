@@ -134,17 +134,15 @@ case $SEL in
 			dcContinue
 		fi
 		
-		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/emulationstation2.po
-		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/emulationstation2.mo
 		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/opensans_hebrew_condensed_light.ttf
 		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/opensans_hebrew_condensed_regular.ttf
 		
 		if [ $ESOS != "arkos" ]; then
+			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/emulationstation2.po
+			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/emulationstation2.mo
 			cp -f ./$TEMP/emulationstation2.* $LC_PATH/
 			cp -f ./$TEMP/opensans_hebrew_condensed_light.ttf $RES_PATH/NanumMyeongjo.ttf
-		fi
-
-		if [ $ESOS == "arkos" ]; then
+		else
 			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/NotoSansKR-Light.otf
 			if [ -f "$THEME_PATH/es-theme-arkos-carbon/art/Cabin-Regular.ttf" ]; then
 				cp -f ./$TEMP/opensans_hebrew_condensed_light.ttf $THEME_PATH/es-theme-arkos-carbon/art/Cabin-Regular.ttf
@@ -179,17 +177,33 @@ case $SEL in
 			if [ -f "$THEME_PATH/es-theme-switch/assets/Oxygen-Bold.ttf" ]; then
 			cp -f ./$TEMP/opensans_hebrew_condensed_light.ttf $THEME_PATH/es-theme-switch/assets/Oxygen-Bold.ttf
 			fi
+			#<string name="Language" value="ko" />
 		fi
+
 		cp -f ./$TEMP/opensans*.ttf $RES_PATH/
 
 		if [ $HOSTNAME == "BATOCERA" ]; then
+			sed -i 's/system.language=.*/system.language=ko_KR/g' /userdata/system/$ESOS.conf
+			
 			cp -f ./$TEMP/opensans_hebrew_condensed_light.ttf /usr/share/fonts/truetype/nanum/NanumMyeongjo.ttf
 			batocera-save-overlay
+
 		elif [ $HOSTNAME == "ANBERNIC" ]; then
+			sed -i 's/system.language=.*/system.language=ko_KR/g' /userdata/system/$ESOS.conf
+
 			cp -f ./$TEMP/opensans_hebrew_condensed_light.ttf /usr/share/fonts/truetype/nanum/NanumMyeongjo.ttf
 			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/notice.pdf
 			cp -f ./$TEMP/notice.pdf /usr/share/anbernic/doc/notice.pdf
 			anbernic-save-overlay
+
+		elif [ $ESOS == "amberelec" ]; then
+			sed -i 's/system.language=.*/system.language=ko_KR/g' /storage/.config/distribution/configs/distribution.conf
+
+		elif [ $ESOS == "jelos" ]; then
+			sed -i 's/system.language=.*/system.language=ko_KR/g' /storage/.config/system/configs/system.cfg
+		
+		elif [ $ESOS == "arkos" ]; then
+			sed -i 's/name="Language" value=.*"/name="Language" value="ko"/g' /home/ark/.emulationstation/es_settings.cfg
 		fi
 
 		echo -e "\nProcessing complete."
