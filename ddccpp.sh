@@ -40,6 +40,13 @@ elif cat /etc/*release | grep JELOS >/dev/null; then
 	RES_PATH="/storage/.config/emulationstation/resources"
 	PSPFONT_PATH="/storage/.config/ppsspp/assets/flash0/font"
 
+elif [ -d /home/ark ]; then
+	ESOS="arkos"
+	LC_PATH="/usr/bin/emulationstation/resources/locale/ko"
+	THEME_PATH="/roms/themes"
+	BIOS_PATH="/roms/bios"
+	RES_PATH="/usr/bin/emulationstation/resources"
+	PSPFONT_PATH="/opt/ppsspp/assets/flash0/font"
 else
 	echo "This operating system is not supported."
 	exit 0
@@ -81,173 +88,175 @@ function dcESreboot(){
 }
 
 rm -rf ./$TEMP
-
 if ping -q -c 1 -W 1 google.com >/dev/null; then
-
 	mkdir ./$TEMP
+else
+	echo "The network is off."
+	exit 0
+fi
 
-	OPTIONS=(1 "Apply EmulationStation UI Korean patch"
-		2 "Apply Retroarch UI Korean patch"
-		3 "Apply Retroarch Vertical arcade settings"
-		4 "Install Anbernic Epic noir OE theme"
-		5 "Install PPSSPP Patched font"
-		6 "Restore PPSSPP Original font"
-		7 "Change all platform integer scales"
-		B "Install Minimal Support pack"
-		E "Restart EmulationStation"
-		R "Reboot System"
-		Q "Quit")
+OPTIONS=(1 "Apply EmulationStation UI Korean patch"
+	2 "Apply Retroarch UI Korean patch"
+	3 "Apply Retroarch Vertical arcade settings"
+	4 "Install Anbernic Epic noir OE theme"
+	5 "Install PPSSPP Patched font"
+	6 "Restore PPSSPP Original font"
+	7 "Change all platform integer scales"
+	B "Install Minimal Support pack"
+	E "Restart EmulationStation"
+	R "Reboot System"
+	Q "Quit")
 
-	SEL=$(dialog --clear \
-		--backtitle "$BACKTITLE" \
-		--title "$TITLE" \
-		--menu "$MENU" \
-		$HEIGHT $WIDTH $SEL_HEIGHT \
-		"${OPTIONS[@]}" \
-		2>&1 >/dev/tty)
+SEL=$(dialog --clear \
+	--backtitle "$BACKTITLE" \
+	--title "$TITLE" \
+	--menu "$MENU" \
+	$HEIGHT $WIDTH $SEL_HEIGHT \
+	"${OPTIONS[@]}" \
+	2>&1 >/dev/tty)
 
-	clear
-	case $SEL in
-		1)
-			#Apply EmulationStation UI Korean patch
-			
-			if [ ! -d $LC_PATH ]; then
-				echo "ERROR: Failed to find locale directory."
+clear
+case $SEL in
+	1)
+		#Apply EmulationStation UI Korean patch
+		
+		if [ ! -d $LC_PATH ]; then
+			echo "ERROR: Failed to find locale directory."
+			exit 0
+		fi
+
+		if [ $HOSTNAME == "EMUELEC" ]; then
+			echo "This operating system is not supported."
+			dcContinue
+		fi
+		
+		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/emulationstation2.po
+		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/emulationstation2.mo
+		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/opensans_hebrew_condensed_light.ttf
+		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/opensans_hebrew_condensed_regular.ttf
+		cp -f ./$TEMP/emulationstation2.* $LC_PATH/
+		cp -f ./$TEMP/opensans*.ttf $RES_PATH/
+		cp -f ./$TEMP/opensans_hebrew_condensed_light.ttf $RES_PATH/NanumMyeongjo.ttf
+
+		if [ $HOSTNAME == "BATOCERA" ]; then
+			cp -f ./$TEMP/opensans_hebrew_condensed_light.ttf /usr/share/fonts/truetype/nanum/NanumMyeongjo.ttf
+			batocera-save-overlay
+		elif [ $HOSTNAME == "ANBERNIC" ]; then
+			cp -f ./$TEMP/opensans_hebrew_condensed_light.ttf /usr/share/fonts/truetype/nanum/NanumMyeongjo.ttf
+			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/notice.pdf
+			cp -f ./$TEMP/notice.pdf /usr/share/anbernic/doc/notice.pdf
+			anbernic-save-overlay
+		fi
+
+		echo -e "\nProcessing complete."
+		dcESreboot
+		dcContinue
+		;;
+
+	2)
+		#Apply Retroarch UI Korean patch
+
+		if [ $HOSTNAME == "EMUELEC" ]; then
+			echo "This operating system is not supported."
+			dcContinue
+		fi
+
+		if [ $HOSTNAME == "BATOCERA" ] || [ $HOSTNAME == "ANBERNIC" ]; then
+			LCONF="/userdata/system/$ESOS.conf"
+
+			if [ ! -f "/userdata/system/configs/retroarch/retroarchcustom.cfg" ]; then
+				echo "ERROR: Failed to find Retroarch Config."
 				exit 0
 			fi
 
-			if [ $HOSTNAME == "EMUELEC" ]; then
-				echo "This operating system is not supported."
-				dcContinue
-			fi
-			
-			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/emulationstation2.po
-			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/emulationstation2.mo
-			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/opensans_hebrew_condensed_light.ttf
-			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/opensans_hebrew_condensed_regular.ttf
-			cp -f ./$TEMP/emulationstation2.* $LC_PATH/
-			cp -f ./$TEMP/opensans*.ttf $RES_PATH/
-			cp -f ./$TEMP/opensans_hebrew_condensed_light.ttf $RES_PATH/NanumMyeongjo.ttf
+			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/font.ttf
 
-			if [ $HOSTNAME == "BATOCERA" ]; then
-				cp -f ./$TEMP/opensans_hebrew_condensed_light.ttf /usr/share/fonts/truetype/nanum/NanumMyeongjo.ttf
-				batocera-save-overlay
-			elif [ $HOSTNAME == "ANBERNIC" ]; then
-				cp -f ./$TEMP/opensans_hebrew_condensed_light.ttf /usr/share/fonts/truetype/nanum/NanumMyeongjo.ttf
-				wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/notice.pdf
-				cp -f ./$TEMP/notice.pdf /usr/share/anbernic/doc/notice.pdf
-				anbernic-save-overlay
+			if [ ! -d "/userdata/system/configs/retroarch/assets" ]; then
+				mkdir -p /userdata/system/configs/retroarch/assets
 			fi
 
-			echo -e "\nProcessing complete."
-			dcESreboot
-			dcContinue
-			;;
+			cp -f ./$TEMP/font.ttf /userdata/system/configs/retroarch/assets/
 
-		2)
-			#Apply Retroarch UI Korean patch
-
-			if [ $HOSTNAME == "EMUELEC" ]; then
-				echo "This operating system is not supported."
-				dcContinue
-			fi
-
-			if [ $HOSTNAME == "BATOCERA" ] || [ $HOSTNAME == "ANBERNIC" ]; then
-				LCONF="/userdata/system/$ESOS.conf"
-
-				if [ ! -f "/userdata/system/configs/retroarch/retroarchcustom.cfg" ]; then
-					echo "ERROR: Failed to find Retroarch Config."
-					exit 0
-				fi
-
-				wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/font.ttf
-
-				if [ ! -d "/userdata/system/configs/retroarch/assets" ]; then
-					mkdir -p /userdata/system/configs/retroarch/assets
-				fi
-
-				cp -f ./$TEMP/font.ttf /userdata/system/configs/retroarch/assets/
-
-				if cat $LCONF | grep global.retroarch.video_font_path >/dev/null; then
-					sed -i 's/global.retroarch.video_font_path.*/global.retroarch.video_font_path = \"\/userdata\/system\/configs\/retroarch\/assets\/font.ttf\"/g' $LCONF
-				else
-					echo -e '\nglobal.retroarch.video_font_path = "/userdata/system/configs/retroarch/assets/font.ttf"' >> $LCONF
-				fi
-
-				if cat $LCONF | grep global.retroarch.xmb_font >/dev/null; then
-					sed -i 's/global.retroarch.xmb_font.*/global.retroarch.xmb_font = \"\/userdata\/system\/configs\/retroarch\/assets\/font.ttf\"/g' $LCONF
-				else
-					echo -e 'global.retroarch.xmb_font = "/userdata/system/configs/retroarch/assets/font.ttf"' >> $LCONF
-				fi
-				
-				sed -i \
-				-e 's/user_language.*/user_language = \"10\"/g' \
-				-e 's/menu_driver.*/menu_driver = \"xmb\"/g' \
-				/userdata/system/configs/retroarch/retroarchcustom.cfg
-
+			if cat $LCONF | grep global.retroarch.video_font_path >/dev/null; then
+				sed -i 's/global.retroarch.video_font_path.*/global.retroarch.video_font_path = \"\/userdata\/system\/configs\/retroarch\/assets\/font.ttf\"/g' $LCONF
 			else
-				if [ ! -f "/storage/.config/retroarch/retroarch.cfg" ]; then
-					echo "ERROR: Failed to find Retroarch Config."
-					exit 0
-				fi
-
-				sed -i \
-				-e 's/user_language.*/user_language = \"10\"/g' \
-				-e 's/menu_driver.*/menu_driver = \"xmb\"/g' \
-				/storage/.config/retroarch/retroarch.cfg
-				
-				SCONF=""
-				if [ $ESOS == "amberelec" ]; then
-					SCONF="/storage/.config/distribution/configs/distribution.conf"
-				elif [ $ESOS == "jelos" ]; then
-					SCONF="/storage/.config/system/configs/system.cfg"
-				fi
-				
-				if [ $SCONF != "" ]; then
-					if cat $SCONF | grep global.retroarch.menu_driver >/dev/null; then
-						sed -i 's/global.retroarch.menu_driver.*/global.retroarch.menu_driver=xmb/g' $SCONF
-					else
-						echo -e 'global.retroarch.menu_driver=xmb' >> $SCONF
-					fi
-				fi
+				echo -e '\nglobal.retroarch.video_font_path = "/userdata/system/configs/retroarch/assets/font.ttf"' >> $LCONF
 			fi
 
-			echo -e "\nProcessing complete."
-			dcESreboot
-			dcContinue
-			;;
+			if cat $LCONF | grep global.retroarch.xmb_font >/dev/null; then
+				sed -i 's/global.retroarch.xmb_font.*/global.retroarch.xmb_font = \"\/userdata\/system\/configs\/retroarch\/assets\/font.ttf\"/g' $LCONF
+			else
+				echo -e 'global.retroarch.xmb_font = "/userdata/system/configs/retroarch/assets/font.ttf"' >> $LCONF
+			fi
+			
+			sed -i \
+			-e 's/user_language.*/user_language = \"10\"/g' \
+			-e 's/menu_driver.*/menu_driver = \"xmb\"/g' \
+			/userdata/system/configs/retroarch/retroarchcustom.cfg
 
-		3)
-			#Apply Retroarch Vertical arcade settings
+		else
+			if [ ! -f "/storage/.config/retroarch/retroarch.cfg" ]; then
+				echo "ERROR: Failed to find Retroarch Config."
+				exit 0
+			fi
+
+			sed -i \
+			-e 's/user_language.*/user_language = \"10\"/g' \
+			-e 's/menu_driver.*/menu_driver = \"xmb\"/g' \
+			/storage/.config/retroarch/retroarch.cfg
 			
-			CORE=("FinalBurn Neo"
-				"FB Alpha"
-				"FB Alpha 2012"
-				"MAME"
-				"MAME 2000"
-				"MAME 2003-Plus"
-				"MAME 2010"
-				"MAME 2015"
-			)
+			SCONF=""
+			if [ $ESOS == "amberelec" ]; then
+				SCONF="/storage/.config/distribution/configs/distribution.conf"
+			elif [ $ESOS == "jelos" ]; then
+				SCONF="/storage/.config/system/configs/system.cfg"
+			fi
 			
-			for ((i = 0; i < ${#CORE[@]}; i++))
-			do
-				SS="off"
-				if [ $i -eq 0 ]; then
-					SS="on"
+			if [ $SCONF != "" ]; then
+				if cat $SCONF | grep global.retroarch.menu_driver >/dev/null; then
+					sed -i 's/global.retroarch.menu_driver.*/global.retroarch.menu_driver=xmb/g' $SCONF
+				else
+					echo -e 'global.retroarch.menu_driver=xmb' >> $SCONF
 				fi
+			fi
+		fi
 
-				ITEM+=( "$((i+1))" "${CORE[$i]}" "${SS}" )
-			done
+		echo -e "\nProcessing complete."
+		dcESreboot
+		dcContinue
+		;;
 
-			MENU="Select the core to use from the following options"
-			SEL=$(dialog --clear \
-				--backtitle "$BACKTITLE" \
-				--title "$TITLE" \
-				--checklist "$MENU" \
-				$HEIGHT $WIDTH $SEL_HEIGHT \
-				"${ITEM[@]}" \
-				2>&1 >/dev/tty)
+	3)
+		#Apply Retroarch Vertical arcade settings
+		
+		CORE=("FinalBurn Neo"
+			"FB Alpha"
+			"FB Alpha 2012"
+			"MAME"
+			"MAME 2000"
+			"MAME 2003-Plus"
+			"MAME 2010"
+			"MAME 2015"
+		)
+		
+		for ((i = 0; i < ${#CORE[@]}; i++))
+		do
+			SS="off"
+			if [ $i -eq 0 ]; then
+				SS="on"
+			fi
+
+			ITEM+=( "$((i+1))" "${CORE[$i]}" "${SS}" )
+		done
+
+		MENU="Select the core to use from the following options"
+		SEL=$(dialog --clear \
+			--backtitle "$BACKTITLE" \
+			--title "$TITLE" \
+			--checklist "$MENU" \
+			$HEIGHT $WIDTH $SEL_HEIGHT \
+			"${ITEM[@]}" \
+			2>&1 >/dev/tty)
 
 clear
 echo -n -e "Creating config file"
@@ -290,185 +299,181 @@ input_remap_port_p4 = "3"
 input_remap_port_p5 = "4"
 EOF
 done
-				
-			for i in ${SEL[@]}
-			do
-				TCORE=${CORE[$((i-1))]}
-				if [ $HOSTNAME == "BATOCERA" ] || [ $HOSTNAME == "ANBERNIC" ]; then
-					TCORE_CFG="/userdata/system/.config/retroarch/config"
-					TCORE_RMP="/userdata/system/.config/retroarch/config/remaps"
-				elif [ $ESOS == "amberelec" ]; then
-					TCORE_CFG="/storage/roms/gamedata/retroarch/config"
-					TCORE_RMP="/storage/roms/gamedata/remappings"
-				elif [ $ESOS == "jelos" ] || [ $HOSTNAME == "EMUELEC" ]; then
-					TCORE_CFG="/storage/.config/retroarch/config"
-					TCORE_RMP="/storage/remappings"
-				fi
-
-				if [ ! -d "$TCORE_CFG/TCORE" ]; then
-					mkdir -p "$TCORE_CFG/$TCORE"
-				fi
-				if [ ! -d "$TCORE_RMP/TCORE" ]; then
-					mkdir -p "$TCORE_RMP/$TCORE"
-				fi
-				
-				echo -n -e "\nCopying config file to $TCORE..."
-				cp -f ./$TEMP/*.cfg "$TCORE_CFG/$TCORE/"
-				echo -n -e "\nCopying remapping file to $TCORE..."
-				cp -f ./$TEMP/*.rmp "$TCORE_RMP/$TCORE/"
-
-			done
-
-			echo -e "\nProcessing complete."
-			dcContinue
-			;;
-
-		4)
-			#Install Anbernic Epic noir OE theme
 			
-			if [ ! -d $THEME_PATH ]; then
-				echo "ERROR: Failed to find Themes directory."
-				exit 0
-			fi
-
-			THEME_NAME="es-theme-anbernic-dc"
-			
-			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-theme-anbernic-dc/archive/refs/heads/main.zip
-			unzip ./$TEMP/main.zip -d ./$TEMP
-			rm -rf $THEME_PATH/$THEME_NAME
-			cp -rf ./$TEMP/es-theme-anbernic-dc* $THEME_PATH/$THEME_NAME
-			
+		for i in ${SEL[@]}
+		do
+			TCORE=${CORE[$((i-1))]}
 			if [ $HOSTNAME == "BATOCERA" ] || [ $HOSTNAME == "ANBERNIC" ]; then
-				sed -i 's/name="ThemeSet" value=".*"/name="ThemeSet" value="es-theme-anbernic-dc"/g' /userdata/system/configs/emulationstation/es_settings.cfg
-			else
-				sed -i 's/name="ThemeSet" value=".*"/name="ThemeSet" value="es-theme-anbernic-dc"/g' /storage/.config/emulationstation/es_settings.cfg
+				TCORE_CFG="/userdata/system/.config/retroarch/config"
+				TCORE_RMP="/userdata/system/.config/retroarch/config/remaps"
+			elif [ $ESOS == "amberelec" ]; then
+				TCORE_CFG="/storage/roms/gamedata/retroarch/config"
+				TCORE_RMP="/storage/roms/gamedata/remappings"
+			elif [ $ESOS == "jelos" ] || [ $HOSTNAME == "EMUELEC" ]; then
+				TCORE_CFG="/storage/.config/retroarch/config"
+				TCORE_RMP="/storage/remappings"
 			fi
 
-			echo -e "\nProcessing complete."
-			dcESreboot
-			dcContinue
-			;;
-
-		5)
-			#Install PPSSPP Patched font
+			if [ ! -d "$TCORE_CFG/TCORE" ]; then
+				mkdir -p "$TCORE_CFG/$TCORE"
+			fi
+			if [ ! -d "$TCORE_RMP/TCORE" ]; then
+				mkdir -p "$TCORE_RMP/$TCORE"
+			fi
 			
-			if [ ! -d $PSPFONT_PATH ]; then
-				echo "ERROR: Failed to find Font directory."
-				exit 0
-			fi
+			echo -n -e "\nCopying config file to $TCORE..."
+			cp -f ./$TEMP/*.cfg "$TCORE_CFG/$TCORE/"
+			echo -n -e "\nCopying remapping file to $TCORE..."
+			cp -f ./$TEMP/*.rmp "$TCORE_RMP/$TCORE/"
 
-			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/kr0.pgf
-			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/jpn0.pgf
-			cp -f ./$TEMP/*.pgf $PSPFONT_PATH/
+		done
 
-			echo -e "\nProcessing complete."
-			dcContinue
-			;;
+		echo -e "\nProcessing complete."
+		dcContinue
+		;;
+
+	4)
+		#Install Anbernic Epic noir OE theme
 		
-		6)
-			#Restore PPSSPP Original font
-			
-			if [ ! -d $PSPFONT_PATH ]; then
-				echo "ERROR: Failed to find Font directory."
-				exit 0
-			fi
-			
-			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/kr0.original.pgf
-			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/jpn0.original.pgf
-			cp -f ./$TEMP/kr0.original.pgf $PSPFONT_PATH/kr0.pgf
-			cp -f ./$TEMP/jpn0.original.pgf $PSPFONT_PATH/jpn0.pgf
-			
-			echo -e "\nProcessing complete."
-			dcContinue
-			;;
+		if [ ! -d $THEME_PATH ]; then
+			echo "ERROR: Failed to find Themes directory."
+			exit 0
+		fi
+
+		THEME_NAME="es-theme-anbernic-dc"
 		
-		7)
-			#Change all platform integer scales
-			
-			#emuelec "/storage/.config/emuelec/configs/emuelec.conf"
-
-			if [ $ESOS != "amberelec" ] && [ $ESOS != "jelos" ]; then
-				echo "This operating system is not supported."
-				dcContinue
-			fi
-
-			if [ $ESOS == "amberelec" ]; then
-				SCONF="/storage/.config/distribution/configs/distribution.conf"
-			elif [ $ESOS == "jelos" ]; then
-				SCONF="/storage/.config/system/configs/system.cfg"
-			fi
-
-			if [ ! -f $SCONF ]; then
-				echo "ERROR: Failed to find System Config."
-				exit 0
-			fi
-
-			OPTIONS=(1 "ON"
-				2 "OFF")
-
-			SEL=$(dialog --clear \
-				--backtitle "$BACKTITLE" \
-				--title "$TITLE" \
-				--menu "$MENU" \
-				$HEIGHT $WIDTH $SEL_HEIGHT \
-				"${OPTIONS[@]}" \
-				2>&1 >/dev/tty)
-			
-			clear
-			case $SEL in
-				1)
-					sed -i 's/integerscale=.*/integerscale=1/g' $SCONF
-					;;
-				2)
-					sed -i 's/integerscale=.*/integerscale=0/g' $SCONF
-					;;
-			esac
-			
-			echo -e "\nProcessing complete."
-			dcContinue
-			;;
-
-		B)
-			#Install Minimal Support pack
-
-			if [ ! -d $BIOS_PATH ]; then
-				echo "ERROR: Failed to find Bios directory."
-				exit 0
-			fi
-
-			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/minimal-Bios/archive/refs/heads/main.zip
-			unzip ./$TEMP/main.zip -d ./$TEMP
-			cp -rf ./$TEMP/minimal-Bios-main/* $BIOS_PATH
-
-			echo -e "\nProcessing complete."
-			dcContinue
-			;;
-
-		E)
-			#Restart EmulationStation
-
-			echo -e "\nProcessing complete."
-			dcESreboot
-			dcContinue
-			;;
+		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-theme-anbernic-dc/archive/refs/heads/main.zip
+		unzip ./$TEMP/main.zip -d ./$TEMP
+		rm -rf $THEME_PATH/$THEME_NAME
+		cp -rf ./$TEMP/es-theme-anbernic-dc* $THEME_PATH/$THEME_NAME
 		
-		R)
-			#Reboot System
+		if [ $HOSTNAME == "BATOCERA" ] || [ $HOSTNAME == "ANBERNIC" ]; then
+			sed -i 's/name="ThemeSet" value=".*"/name="ThemeSet" value="es-theme-anbernic-dc"/g' /userdata/system/configs/emulationstation/es_settings.cfg
+		else
+			sed -i 's/name="ThemeSet" value=".*"/name="ThemeSet" value="es-theme-anbernic-dc"/g' /storage/.config/emulationstation/es_settings.cfg
+		fi
 
-			dcReboot
-			;;
+		echo -e "\nProcessing complete."
+		dcESreboot
+		dcContinue
+		;;
 
-		Q)
-			#Quit
-			
-			echo "Bye~:)"
-			;;
+	5)
+		#Install PPSSPP Patched font
+		
+		if [ ! -d $PSPFONT_PATH ]; then
+			echo "ERROR: Failed to find Font directory."
+			exit 0
+		fi
 
-	esac
+		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/kr0.pgf
+		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/jpn0.pgf
+		cp -f ./$TEMP/*.pgf $PSPFONT_PATH/
 
-else
-	echo "The network is off."
-fi
+		echo -e "\nProcessing complete."
+		dcContinue
+		;;
+	
+	6)
+		#Restore PPSSPP Original font
+		
+		if [ ! -d $PSPFONT_PATH ]; then
+			echo "ERROR: Failed to find Font directory."
+			exit 0
+		fi
+		
+		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/kr0.original.pgf
+		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/jpn0.original.pgf
+		cp -f ./$TEMP/kr0.original.pgf $PSPFONT_PATH/kr0.pgf
+		cp -f ./$TEMP/jpn0.original.pgf $PSPFONT_PATH/jpn0.pgf
+		
+		echo -e "\nProcessing complete."
+		dcContinue
+		;;
+	
+	7)
+		#Change all platform integer scales
+		
+		#emuelec "/storage/.config/emuelec/configs/emuelec.conf"
+
+		if [ $ESOS != "amberelec" ] && [ $ESOS != "jelos" ]; then
+			echo "This operating system is not supported."
+			dcContinue
+		fi
+
+		if [ $ESOS == "amberelec" ]; then
+			SCONF="/storage/.config/distribution/configs/distribution.conf"
+		elif [ $ESOS == "jelos" ]; then
+			SCONF="/storage/.config/system/configs/system.cfg"
+		fi
+
+		if [ ! -f $SCONF ]; then
+			echo "ERROR: Failed to find System Config."
+			exit 0
+		fi
+
+		OPTIONS=(1 "ON"
+			2 "OFF")
+
+		SEL=$(dialog --clear \
+			--backtitle "$BACKTITLE" \
+			--title "$TITLE" \
+			--menu "$MENU" \
+			$HEIGHT $WIDTH $SEL_HEIGHT \
+			"${OPTIONS[@]}" \
+			2>&1 >/dev/tty)
+		
+		clear
+		case $SEL in
+			1)
+				sed -i 's/integerscale=.*/integerscale=1/g' $SCONF
+				;;
+			2)
+				sed -i 's/integerscale=.*/integerscale=0/g' $SCONF
+				;;
+		esac
+		
+		echo -e "\nProcessing complete."
+		dcContinue
+		;;
+
+	B)
+		#Install Minimal Support pack
+
+		if [ ! -d $BIOS_PATH ]; then
+			echo "ERROR: Failed to find Bios directory."
+			exit 0
+		fi
+
+		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/minimal-Bios/archive/refs/heads/main.zip
+		unzip ./$TEMP/main.zip -d ./$TEMP
+		cp -rf ./$TEMP/minimal-Bios-main/* $BIOS_PATH
+
+		echo -e "\nProcessing complete."
+		dcContinue
+		;;
+
+	E)
+		#Restart EmulationStation
+
+		echo -e "\nProcessing complete."
+		dcESreboot
+		dcContinue
+		;;
+	
+	R)
+		#Reboot System
+
+		dcReboot
+		;;
+
+	Q)
+		#Quit
+		
+		echo "Bye~:)"
+		;;
+
+esac
 
 rm -rf ./$TEMP
 exit 0

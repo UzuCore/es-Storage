@@ -3465,10 +3465,10 @@ msgid "CORES USED"
 msgstr "사용된 코어"
 
 msgid "BIG"
-msgstr "큰"
+msgstr "빅"
 
 msgid "LITTLE"
-msgstr "작은"
+msgstr "리틀"
 
 msgid "You are about to set your language to:"
 msgstr "언어를 다음과 같이 설정하려고 합니다."
