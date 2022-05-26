@@ -47,6 +47,7 @@ elif [ -d /home/ark ]; then
 	BIOS_PATH="/roms/bios"
 	RES_PATH="/usr/bin/emulationstation/resources"
 	PSPFONT_PATH="/opt/ppsspp/assets/flash0/font"
+
 else
 	echo "This operating system is not supported."
 	exit 0
@@ -81,9 +82,11 @@ function dcESreboot(){
 		anbernic-es-swissknife --restart > /dev/null 2>&1
 
 	else
-		touch "/tmp/es-restart"
-		kill $(pgrep -l -n emulationstatio | awk '!/grep/ {printf "%s ",$1}')
-		rm -f "/tmp/es-restart"
+		if [ $ESOS == "arkos" ]; then
+			sudo -u root touch /tmp/es-restart; pkill -f "/emulationstation$"
+		else
+			touch /tmp/es-restart; pkill -f "/emulationstation$"
+		fi
 	fi
 }
 
@@ -134,9 +137,49 @@ case $SEL in
 		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/emulationstation2.mo
 		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/opensans_hebrew_condensed_light.ttf
 		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/opensans_hebrew_condensed_regular.ttf
-		cp -f ./$TEMP/emulationstation2.* $LC_PATH/
+		
+		if [ $ESOS != "arkos" ]; then
+			cp -f ./$TEMP/emulationstation2.* $LC_PATH/
+			cp -f ./$TEMP/opensans_hebrew_condensed_light.ttf $RES_PATH/NanumMyeongjo.ttf
+		fi
+
+		if [ $ESOS == "arkos" ]; then
+			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/NotoSansKR-Light.otf
+			if [ -f "$THEME_PATH/es-theme-arkos-carbon/art/Cabin-Regular.ttf" ]; then
+				cp -f ./$TEMP/opensans_hebrew_condensed_light.ttf $THEME_PATH/es-theme-arkos-carbon/art/Cabin-Regular.ttf
+			fi
+			if [ -f "$THEME_PATH/es-theme-arkos-carbon/art/Cabin-Bold.ttf" ]; then
+			cp -f ./$TEMP/opensans_hebrew_condensed_regular.ttf $THEME_PATH/es-theme-arkos-carbon/art/Cabin-Bold.ttf
+			fi
+			if [ -f "$THEME_PATH/es-theme-epic-cody-RG351P-M/_art/Acre.otf" ]; then
+			cp -f ./$TEMP/NotoSansKR-Light.otf $THEME_PATH/es-theme-epic-cody-RG351P-M/_art/Acre.otf
+			fi
+			if [ -f "$THEME_PATH/es-theme-epicnoir/_art/Acre.otf" ]; then
+			cp -f ./$TEMP/NotoSansKR-Light.otf $THEME_PATH/es-theme-epicnoir/_art/Acre.otf
+			fi
+			if [ -f "$THEME_PATH/es-theme-freeplay/_inc/fonts/Helsinki-Narrow.ttf" ]; then
+			cp -f ./$TEMP/opensans_hebrew_condensed_light.ttf $THEME_PATH/es-theme-freeplay/_inc/fonts/Helsinki-Narrow.ttf
+			fi
+			if [ -f "$THEME_PATH/es-theme-gbz35_mod/_inc/fonts/RobotoCondensed-Regular.ttf" ]; then
+			cp -f ./$TEMP/opensans_hebrew_condensed_light.ttf $THEME_PATH/es-theme-gbz35_mod/_inc/fonts/RobotoCondensed-Regular.ttf
+			fi
+			if [ -f "$THEME_PATH/es-theme-magical-pixel/_inc/fonts/font.ttf" ]; then
+			cp -f ./$TEMP/opensans_hebrew_condensed_light.ttf $THEME_PATH/es-theme-magical-pixel/_inc/fonts/font.ttf
+			fi
+			if [ -f "$THEME_PATH/es-theme-minimal-arkos/assets/SST.ttf" ]; then
+			cp -f ./$TEMP/opensans_hebrew_condensed_light.ttf $THEME_PATH/es-theme-minimal-arkos/assets/SST.ttf
+			fi
+			if [ -f "$THEME_PATH/es-theme-minimal-arkos/assets/noto.ttf" ]; then
+			cp -f ./$TEMP/opensans_hebrew_condensed_regular.ttf $THEME_PATH/es-theme-minimal-arkos/assets/noto.ttf
+			fi
+			if [ -f "$THEME_PATH/es-theme-nes-box/_inc/fonts/Cabin-Bold.ttf" ]; then
+			cp -f ./$TEMP/opensans_hebrew_condensed_light.ttf $THEME_PATH/es-theme-nes-box/_inc/fonts/Cabin-Bold.ttf
+			fi
+			if [ -f "$THEME_PATH/es-theme-switch/assets/Oxygen-Bold.ttf" ]; then
+			cp -f ./$TEMP/opensans_hebrew_condensed_light.ttf $THEME_PATH/es-theme-switch/assets/Oxygen-Bold.ttf
+			fi
+		fi
 		cp -f ./$TEMP/opensans*.ttf $RES_PATH/
-		cp -f ./$TEMP/opensans_hebrew_condensed_light.ttf $RES_PATH/NanumMyeongjo.ttf
 
 		if [ $HOSTNAME == "BATOCERA" ]; then
 			cp -f ./$TEMP/opensans_hebrew_condensed_light.ttf /usr/share/fonts/truetype/nanum/NanumMyeongjo.ttf
