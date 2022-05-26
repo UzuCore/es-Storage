@@ -86,7 +86,7 @@ function dcESreboot(){
 		if [ $ESOS == "arkos" ]; then
 			sudo -u root touch /tmp/es-restart; pkill -f "/emulationstation$"
 		else
-			touch /tmp/es-restart; pkill -f "/emulationstation$"
+			touch /tmp/es-restart; kill $(pgrep -l -n emulationstatio | awk '!/grep/ {printf "%s ",$1}'); rm -f "/tmp/es-restart"
 		fi
 	fi
 }
