@@ -54,7 +54,7 @@ else
 fi
 
 TEMP="ddccpp"
-VER="1.0.32"
+VER="1.0.33"
 HEIGHT=18
 WIDTH=60
 SEL_HEIGHT=12
@@ -286,7 +286,7 @@ case $SEL in
 
 	3)
 		#Apply Retroarch Vertical arcade settings
-		
+
 		CORE=("FinalBurn Neo"
 			"FB Alpha"
 			"FB Alpha 2012"
@@ -317,13 +317,27 @@ case $SEL in
 			2>&1 >/dev/tty)
 
 clear
-echo -n -e "Creating config file"
+
+mkdir ./$TEMP/mam
+mkdir ./$TEMP/fbn
+
+echo -n -e "Creating config MAME file"
 for i in ${VTC[@]}
 do
 echo -n '.'
-cat <<EOF >./$TEMP/${i}.cfg
-aspect_ratio_index = "24"
+cat <<EOF >./$TEMP/mam/${i}.cfg
+aspect_ratio_index = "0"
+allow_video_rotate = "true"
 video_rotation = "1"
+EOF
+done
+
+echo -n -e "\nCreating config FBNEO file"
+for i in ${VTC[@]}
+do
+echo -n '.'
+cat <<EOF >./$TEMP/fbn/${i}.opt
+fbneo-vertical-mode = "alternate"
 EOF
 done
 
@@ -360,7 +374,7 @@ done
 			
 		for i in ${SEL[@]}
 		do
-			TCORE=${CORE[$((i-1))]}
+			TCORE="${CORE[$((i-1))]}"
 			if [ $HOSTNAME == "BATOCERA" ] || [ $HOSTNAME == "ANBERNIC" ]; then
 				TCORE_CFG="/userdata/system/.config/retroarch/config"
 				TCORE_RMP="/userdata/system/.config/retroarch/config/remaps"
@@ -375,16 +389,19 @@ done
 				TCORE_RMP="/home/ark/.config/retroarch/config/remaps"
 			fi
 
-			if [ ! -d "$TCORE_CFG/TCORE" ]; then
-				mkdir -p "$TCORE_CFG/$TCORE"
-			fi
-			if [ ! -d "$TCORE_RMP/TCORE" ]; then
-				mkdir -p "$TCORE_RMP/$TCORE"
-			fi
+			rm -rf "$TCORE_CFG/$TCORE"
+			rm -rf "$TCORE_RMP/$TCORE"
+			mkdir -p "$TCORE_CFG/$TCORE"
+			mkdir -p "$TCORE_RMP/$TCORE"
 			
-			echo -n -e "\nCopying config file to $TCORE..."
-			cp -f ./$TEMP/*.cfg "$TCORE_CFG/$TCORE/"
-			echo -n -e "\nCopying remapping file to $TCORE..."
+			if [[ $TCORE == *"MAME"* ]]; then
+				echo -e "Copying config file to $TCORE..."
+				cp -f ./$TEMP/mam/* "$TCORE_CFG/$TCORE/"
+			else
+				echo -e "Copying config file to $TCORE..."
+				cp -f ./$TEMP/fbn/* "$TCORE_CFG/$TCORE/"
+			fi
+			echo -e "Copying remapping file to $TCORE..."
 			cp -f ./$TEMP/*.rmp "$TCORE_RMP/$TCORE/"
 
 		done
