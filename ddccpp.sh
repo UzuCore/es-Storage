@@ -54,7 +54,7 @@ else
 fi
 
 TEMP="ddccpp"
-VER="1.0.33"
+VER="1.0.36"
 HEIGHT=18
 WIDTH=60
 SEL_HEIGHT=12
@@ -136,13 +136,15 @@ case $SEL in
 		
 		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/opensans_hebrew_condensed_light.ttf
 		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/opensans_hebrew_condensed_regular.ttf
+		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/emulationstation2.po
+		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/emulationstation2.mo
 		
 		if [ $ESOS != "arkos" ]; then
-			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/emulationstation2.po
-			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/emulationstation2.mo
 			cp -f ./$TEMP/emulationstation2.* $LC_PATH/
 			cp -f ./$TEMP/opensans_hebrew_condensed_light.ttf $RES_PATH/NanumMyeongjo.ttf
 		else
+			cp -f ./$TEMP/emulationstation2.po $LC_PATH/
+
 			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/NotoSansKR-Light.otf
 			if [ -f "$THEME_PATH/es-theme-arkos-carbon/art/Cabin-Regular.ttf" ]; then
 				cp -f ./$TEMP/opensans_hebrew_condensed_light.ttf $THEME_PATH/es-theme-arkos-carbon/art/Cabin-Regular.ttf
