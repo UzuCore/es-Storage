@@ -370,6 +370,9 @@ done
 			elif [ $ESOS == "jelos" ] || [ $HOSTNAME == "EMUELEC" ]; then
 				TCORE_CFG="/storage/.config/retroarch/config"
 				TCORE_RMP="/storage/remappings"
+			elif [ $ESOS == "jelos" ]; then
+				TCORE_CFG="/home/ark/.config/retroarch/config"
+				TCORE_RMP="/home/ark/.config/retroarch/config/remaps"
 			fi
 
 			if [ ! -d "$TCORE_CFG/TCORE" ]; then
@@ -459,8 +462,6 @@ done
 	7)
 		#Change all platform integer scales
 		
-		#emuelec "/storage/.config/emuelec/configs/emuelec.conf"
-
 		if [ $ESOS != "amberelec" ] && [ $ESOS != "jelos" ]; then
 			echo "ERROR: This operating system is not supported."
 			dcContinue
