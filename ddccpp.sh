@@ -370,7 +370,7 @@ done
 			elif [ $ESOS == "jelos" ] || [ $HOSTNAME == "EMUELEC" ]; then
 				TCORE_CFG="/storage/.config/retroarch/config"
 				TCORE_RMP="/storage/remappings"
-			elif [ $ESOS == "jelos" ]; then
+			elif [ $ESOS == "arkos" ]; then
 				TCORE_CFG="/home/ark/.config/retroarch/config"
 				TCORE_RMP="/home/ark/.config/retroarch/config/remaps"
 			fi
