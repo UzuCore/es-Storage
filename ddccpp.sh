@@ -124,13 +124,13 @@ case $SEL in
 	1)
 		#Apply EmulationStation UI Korean patch
 		
-		if [ ! -d $LC_PATH ]; then
-			echo "ERROR: Failed to find locale directory."
-			exit 0
+		if [ $HOSTNAME == "EMUELEC" ]; then
+			echo "ERROR: This operating system is not supported."
+			dcContinue
 		fi
 
-		if [ $HOSTNAME == "EMUELEC" ]; then
-			echo "This operating system is not supported."
+		if [ ! -d $LC_PATH ]; then
+			echo "ERROR: Failed to find locale directory."
 			dcContinue
 		fi
 		
@@ -215,7 +215,7 @@ case $SEL in
 		#Apply Retroarch UI Korean patch
 
 		if [ $HOSTNAME == "EMUELEC" ]; then
-			echo "This operating system is not supported."
+			echo "ERROR: This operating system is not supported."
 			dcContinue
 		fi
 
@@ -224,7 +224,7 @@ case $SEL in
 
 			if [ ! -f "/userdata/system/configs/retroarch/retroarchcustom.cfg" ]; then
 				echo "ERROR: Failed to find Retroarch Config."
-				exit 0
+				dcContinue
 			fi
 
 			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/font.ttf
@@ -255,7 +255,7 @@ case $SEL in
 		else
 			if [ ! -f "/storage/.config/retroarch/retroarch.cfg" ]; then
 				echo "ERROR: Failed to find Retroarch Config."
-				exit 0
+				dcContinue
 			fi
 
 			sed -i \
@@ -393,9 +393,14 @@ done
 	4)
 		#Install Anbernic Epic noir OE theme
 		
+		if [ $ESOS == "arkos" ]; then
+			echo "ERROR: This operating system is not supported."
+			dcContinue
+		fi
+
 		if [ ! -d $THEME_PATH ]; then
 			echo "ERROR: Failed to find Themes directory."
-			exit 0
+			dcContinue
 		fi
 
 		THEME_NAME="es-theme-anbernic-dc"
@@ -423,7 +428,7 @@ done
 		
 		if [ ! -d $PSPFONT_PATH ]; then
 			echo "ERROR: Failed to find Font directory."
-			exit 0
+			dcContinue
 		fi
 
 		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/kr0.pgf
@@ -439,7 +444,7 @@ done
 		
 		if [ ! -d $PSPFONT_PATH ]; then
 			echo "ERROR: Failed to find Font directory."
-			exit 0
+			dcContinue
 		fi
 		
 		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/kr0.original.pgf
@@ -457,7 +462,7 @@ done
 		#emuelec "/storage/.config/emuelec/configs/emuelec.conf"
 
 		if [ $ESOS != "amberelec" ] && [ $ESOS != "jelos" ]; then
-			echo "This operating system is not supported."
+			echo "ERROR: This operating system is not supported."
 			dcContinue
 		fi
 
@@ -469,7 +474,7 @@ done
 
 		if [ ! -f $SCONF ]; then
 			echo "ERROR: Failed to find System Config."
-			exit 0
+			dcContinue
 		fi
 
 		OPTIONS=(1 "ON"
@@ -502,7 +507,7 @@ done
 
 		if [ ! -d $BIOS_PATH ]; then
 			echo "ERROR: Failed to find Bios directory."
-			exit 0
+			dcContinue
 		fi
 
 		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/minimal-Bios/archive/refs/heads/main.zip
