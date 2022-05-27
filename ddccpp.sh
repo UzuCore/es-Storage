@@ -251,7 +251,18 @@ case $SEL in
 			-e 's/user_language.*/user_language = \"10\"/g' \
 			-e 's/menu_driver.*/menu_driver = \"xmb\"/g' \
 			/userdata/system/configs/retroarch/retroarchcustom.cfg
+		
+		elif [ $ESOS == "arkos" ]; then
+			if [ ! -f "/home/ark/.config/retroarch/retroarch.cfg" ]; then
+				echo "ERROR: Failed to find Retroarch Config."
+				dcContinue
+			fi
 
+			sed -i \
+			-e 's/user_language.*/user_language = \"10\"/g' \
+			-e 's/menu_driver.*/menu_driver = \"xmb\"/g' \
+			-e 's/xmb_font.*/xmb_font = \"\/home\/ark\/.config\/retroarch\/assets\/xmb\/monochrome\/font.ttf\"/g' \
+			/home/ark/.config/retroarch/retroarch.cfg
 		else
 			if [ ! -f "/storage/.config/retroarch/retroarch.cfg" ]; then
 				echo "ERROR: Failed to find Retroarch Config."
