@@ -322,7 +322,7 @@ for i in ${VTC[@]}
 do
 echo -n '.'
 cat <<EOF >./$TEMP/${i}.cfg
-;aspect_ratio_index = "24"
+aspect_ratio_index = "24"
 video_rotation = "1"
 EOF
 done
