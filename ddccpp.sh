@@ -179,7 +179,6 @@ case $SEL in
 			if [ -f "$THEME_PATH/es-theme-switch/assets/Oxygen-Bold.ttf" ]; then
 			cp -f ./$TEMP/opensans_hebrew_condensed_light.ttf $THEME_PATH/es-theme-switch/assets/Oxygen-Bold.ttf
 			fi
-			#<string name="Language" value="ko" />
 		fi
 
 		cp -f ./$TEMP/opensans*.ttf $RES_PATH/
