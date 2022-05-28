@@ -541,7 +541,7 @@ done
 		fi
 
 		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/minimal-Bios/archive/refs/heads/main.zip
-		unzip ./$TEMP/main.zip -d ./$TEMP
+		unzip -q ./$TEMP/main.zip -d ./$TEMP
 		cp -rf ./$TEMP/minimal-Bios-main/* $BIOS_PATH
 
 		echo -e "\nProcessing complete."
