@@ -3387,42 +3387,6 @@ msgstr "강력한"
 msgid "CUSTOM"
 msgstr "커스텀"
 
-msgid "RAM - 933"
-msgstr ""
-
-msgid "GPU - 900/933"
-msgstr ""
-
-msgid "CPU - 1992/1512/933"
-msgstr ""
-
-msgid "CPU - 2088/1608/933"
-msgstr ""
-
-msgid "CPU - 2184/1704/933"
-msgstr ""
-
-msgid "ALL - 1992/1512/900/933"
-msgstr ""
-
-msgid "ALL - 2088/1608/900/933"
-msgstr ""
-
-msgid "ALL - 2184/1704/900/933"
-msgstr ""
-
-msgid "RAM - 850"
-msgstr ""
-
-msgid "GPU - 560/850"
-msgstr ""
-
-msgid "CPU - 1368/850"
-msgstr ""
-
-msgid "ALL - 1368/560/850"
-msgstr ""
-
 msgid ""
 "WARNING: OVERCLOCKING YOUR DEVICE MAY RESULT IN STABILITY PROBLEMS OR CAUSE "
 "HARDWARE DAMAGE!\n"
@@ -3485,8 +3449,32 @@ msgstr "시스템 설정 사용"
 msgid "A NEW UPDATE IS AVAILABLE"
 msgstr "새 업데이트를 사용할 수 있습니다"
 
+msgid "MOONLIGHT GAME STREAMING"
+msgstr "문라이트 게임 스트리밍"
 
+msgid "UPDATE MOONLIGHT GAMES"
+msgstr "문라이트 게임 업데이트"
 
+msgid "PAIR WITH SERVER"
+msgstr "서버 페어링"
+
+msgid "UNPAIR WITH SERVER"
+msgstr "서버 페어링 해제"
+
+msgid "SERVER IP"
+msgstr "서버 IP"
+
+msgid "PARING PIN"
+msgstr "페어링 PIN"
+
+msgid "PAIRING PIN"
+msgstr "페어링 PIN"
+
+msgid "Unable to connect to server"
+msgstr "서버에 연결할 수 없습니다"
+
+msgid "Succesfully paired with server"
+msgstr "서버와 성공적으로 페어링되었습니다"
 
 
 ### 바토세라
