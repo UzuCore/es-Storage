@@ -54,7 +54,7 @@ else
 fi
 
 TEMP="ddccpp"
-VER="1.0.37"
+VER="1.0.36"
 HEIGHT=18
 WIDTH=60
 SEL_HEIGHT=12
@@ -92,7 +92,7 @@ function dcESreboot(){
 }
 
 rm -rf ./$TEMP
-if nc -zw1 google.com 443; then
+if ping -q -c 1 -W 1 google.com >/dev/null; then
 	mkdir ./$TEMP
 else
 	echo "The network is off."
