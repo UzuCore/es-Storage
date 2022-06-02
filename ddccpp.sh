@@ -467,6 +467,13 @@ done
 		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/jpn0.pgf
 		cp -f ./$TEMP/*.pgf $PSPFONT_PATH/
 
+		if [ $HOSTNAME == "BATOCERA" ]; then
+			batocera-save-overlay
+
+		elif [ $HOSTNAME == "ANBERNIC" ]; then
+			anbernic-save-overlay
+		fi
+
 		echo -e "\nProcessing complete."
 		dcContinue
 		;;
@@ -484,6 +491,13 @@ done
 		cp -f ./$TEMP/kr0.original.pgf $PSPFONT_PATH/kr0.pgf
 		cp -f ./$TEMP/jpn0.original.pgf $PSPFONT_PATH/jpn0.pgf
 		
+		if [ $HOSTNAME == "BATOCERA" ]; then
+			batocera-save-overlay
+
+		elif [ $HOSTNAME == "ANBERNIC" ]; then
+			anbernic-save-overlay
+		fi
+
 		echo -e "\nProcessing complete."
 		dcContinue
 		;;
