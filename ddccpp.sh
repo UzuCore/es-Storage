@@ -54,7 +54,7 @@ else
 fi
 
 TEMP="ddccpp"
-VER="1.0.36"
+VER="1.0.39"
 HEIGHT=18
 WIDTH=60
 SEL_HEIGHT=12
