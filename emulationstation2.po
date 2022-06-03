@@ -1842,10 +1842,10 @@ msgid "DEFAULT"
 msgstr "기본"
 
 msgid "PERFORMANCE"
-msgstr "강력히"
+msgstr "퍼포먼스"
 
 msgid "QUIET"
-msgstr "조용히"
+msgstr "정숙"
 
 msgid "RETROACHIEVEMENT SETTINGS"
 msgstr "레트로 도전과제 설정"
@@ -3475,6 +3475,17 @@ msgstr "서버에 연결할 수 없습니다"
 
 msgid "Succesfully paired with server"
 msgstr "서버와 성공적으로 페어링되었습니다"
+
+msgid "DEFAULT CPU GOVERNOR"
+msgstr "기본 CPU 제어"
+
+msgid "INTERACTIVE"
+msgstr "인터랙티브"
+
+msgid "ONDEMAND"
+msgstr "온디맨드"
+
+
 
 
 ### 바토세라
