@@ -1285,6 +1285,12 @@ msgstr "사운드 설정"
 msgid "NETWORK SETTINGS"
 msgstr "네트워크 설정"
 
+msgid "MOONLIGHT GAME STREAMING"
+msgstr "문라이트 게임 스트리밍"
+
+msgid "Moonlight Game Streaming"
+msgstr "문라이트 게임 스트리밍"
+
 msgid "CONFIGURE INPUT"
 msgstr "입력 설정"
 
@@ -2916,6 +2922,8 @@ msgstr "%d 초"
 
 
 
+
+
 ### 주석해제
 
 msgid "UPDATING BATOCERA"
@@ -3361,133 +3369,6 @@ msgstr "기본"
 
 
 
-### JELOS
-
-msgid "UPDATING SYSTEM"
-msgstr "시스템 업데이트중"
-
-msgid "THE SYSTEM WILL DOWNLOAD AND INSTALL THE UPDATE, CONTINUE?"
-msgstr "시스템이 업데이트를 다운로드 및 설치합니다. 계속하시겠습니까?"
-
-msgid "AUTHENTICATION"
-msgstr "인증"
-
-msgid "ROTATE ROOT PASSWORD"
-msgstr "관리자 비밀번호 로테이트"
-
-msgid "COOLING PROFILE"
-msgstr "쿨링 프로필"
-
-msgid "MODERATE"
-msgstr "적당한"
-
-msgid "AGGRESSIVE"
-msgstr "강력한"
-
-msgid "CUSTOM"
-msgstr "커스텀"
-
-msgid ""
-"WARNING: OVERCLOCKING YOUR DEVICE MAY RESULT IN STABILITY PROBLEMS OR CAUSE "
-"HARDWARE DAMAGE!\n"
-"\n"
-"USING THE QUIET COOLING PROFILE WHILE USING CERTAIN OVERCLOCKS MAY CAUSE "
-"PANIC REBOOTS!\n"
-"\n"
-"JELOS IS NOT RESPONSIBLE FOR ANY DAMAGE THAT MAY OCCUR USING THESE "
-"SETTINGS!\n"
-"\n"
-"CLICK YES THAT YOU AGREE, OR NO TO CANCEL."
-msgstr ""
-"경고: 장치를 오버클럭하면 안정성 문제가 발생하거나 하드웨어가 손상될 수 있습니다!\n"
-"\n"
-"특정 오버클럭을 사용하는 동안 조용한 쿨링 프로필을 사용하면 패닉 리부팅이 발생할 수 있습니다!\n"
-"\n"
-"JELOS는 이러한 설정을 사용하여 발생할 수 있는 손상에 대해 책임지지 않습니다!\n"
-"\n"
-"동의하거나 아니오를 눌러 취소합니다."
-
-msgid "ENABLE INTERNAL WIFI DEVICE"
-msgstr "내부 WIFI 장치 활성화"
-
-msgid "SYSTEM UPDATE"
-msgstr "시스템 업데이트"
-
-msgid "UPDATE BRANCH"
-msgstr "업데이트 타입"
-
-msgid "STABLE"
-msgstr "안정"
-
-msgid "DEVELOPMENT"
-msgstr "개발"
-
-msgid "FORCE NEXT UPDATE"
-msgstr "강제 다음 업데이트"
-
-msgid "CORES USED"
-msgstr "사용된 코어"
-
-msgid "BIG"
-msgstr "빅"
-
-msgid "LITTLE"
-msgstr "리틀"
-
-msgid "You are about to set your language to:"
-msgstr "언어를 다음과 같이 설정하려고 합니다."
-
-msgid "ENABLE GAME SPLASH"
-msgstr "게임 스플래시 사용"
-
-msgid "MOUNT CLOUD DRIVE"
-msgstr "클라우드 드라이브 마운트"
-
-msgid "USE SYSTEM SETTING"
-msgstr "시스템 설정 사용"
-
-msgid "A NEW UPDATE IS AVAILABLE"
-msgstr "새 업데이트를 사용할 수 있습니다"
-
-msgid "MOONLIGHT GAME STREAMING"
-msgstr "문라이트 게임 스트리밍"
-
-msgid "UPDATE MOONLIGHT GAMES"
-msgstr "문라이트 게임 업데이트"
-
-msgid "PAIR WITH SERVER"
-msgstr "서버 페어링"
-
-msgid "UNPAIR WITH SERVER"
-msgstr "서버 페어링 해제"
-
-msgid "SERVER IP"
-msgstr "서버 IP"
-
-msgid "PARING PIN"
-msgstr "페어링 PIN"
-
-msgid "PAIRING PIN"
-msgstr "페어링 PIN"
-
-msgid "Unable to connect to server"
-msgstr "서버에 연결할 수 없습니다"
-
-msgid "Succesfully paired with server"
-msgstr "서버와 성공적으로 페어링되었습니다"
-
-msgid "DEFAULT CPU GOVERNOR"
-msgstr "기본 CPU 제어"
-
-msgid "INTERACTIVE"
-msgstr "인터랙티브"
-
-msgid "ONDEMAND"
-msgstr "온디맨드"
-
-
-
-
 ### 바토세라
 
 msgctxt "joystick"
@@ -3890,6 +3771,7 @@ msgstr "적용하려면 재시작하세요"
 
 
 
+
 ### 엔버닉
 
 msgid "A REBOOT OF THE SYSTEM IS REQUIRED TO COMPLETE THE OPERATION"
@@ -4053,6 +3935,7 @@ msgstr "게임 목록 정리 & 미사용 미디어 삭제"
 
 msgid "SWITCH A/B BUTTONS IN EMULATIONSTATION"
 msgstr "에뮬레이션스테이션에서 A/B 버튼 교체"
+
 
 
 
@@ -4891,3 +4774,131 @@ msgstr "전체게임"
 
 msgid "VIDEO"
 msgstr "동영상"
+
+
+
+
+
+### JELOS
+
+msgid "UPDATING SYSTEM"
+msgstr "시스템 업데이트중"
+
+msgid "THE SYSTEM WILL DOWNLOAD AND INSTALL THE UPDATE, CONTINUE?"
+msgstr "시스템이 업데이트를 다운로드 및 설치합니다. 계속하시겠습니까?"
+
+msgid "AUTHENTICATION"
+msgstr "인증"
+
+msgid "ROTATE ROOT PASSWORD"
+msgstr "관리자 비밀번호 로테이트"
+
+msgid "COOLING PROFILE"
+msgstr "쿨링 프로필"
+
+msgid "MODERATE"
+msgstr "적당한"
+
+msgid "AGGRESSIVE"
+msgstr "강력한"
+
+msgid "CUSTOM"
+msgstr "커스텀"
+
+msgid ""
+"WARNING: OVERCLOCKING YOUR DEVICE MAY RESULT IN STABILITY PROBLEMS OR CAUSE "
+"HARDWARE DAMAGE!\n"
+"\n"
+"USING THE QUIET COOLING PROFILE WHILE USING CERTAIN OVERCLOCKS MAY CAUSE "
+"PANIC REBOOTS!\n"
+"\n"
+"JELOS IS NOT RESPONSIBLE FOR ANY DAMAGE THAT MAY OCCUR USING THESE "
+"SETTINGS!\n"
+"\n"
+"CLICK YES THAT YOU AGREE, OR NO TO CANCEL."
+msgstr ""
+"경고: 장치를 오버클럭하면 안정성 문제가 발생하거나 하드웨어가 손상될 수 있습니다!\n"
+"\n"
+"특정 오버클럭을 사용하는 동안 조용한 쿨링 프로필을 사용하면 패닉 리부팅이 발생할 수 있습니다!\n"
+"\n"
+"JELOS는 이러한 설정을 사용하여 발생할 수 있는 손상에 대해 책임지지 않습니다!\n"
+"\n"
+"동의하거나 아니오를 눌러 취소합니다."
+
+msgid "ENABLE INTERNAL WIFI DEVICE"
+msgstr "내부 WIFI 장치 활성화"
+
+msgid "SYSTEM UPDATE"
+msgstr "시스템 업데이트"
+
+msgid "UPDATE BRANCH"
+msgstr "업데이트 타입"
+
+msgid "STABLE"
+msgstr "안정"
+
+msgid "DEVELOPMENT"
+msgstr "개발"
+
+msgid "FORCE NEXT UPDATE"
+msgstr "강제 다음 업데이트"
+
+msgid "CORES USED"
+msgstr "사용된 코어"
+
+msgid "BIG"
+msgstr "빅"
+
+msgid "LITTLE"
+msgstr "리틀"
+
+msgid "You are about to set your language to:"
+msgstr "언어를 다음과 같이 설정하려고 합니다."
+
+msgid "ENABLE GAME SPLASH"
+msgstr "게임 스플래시 사용"
+
+msgid "MOUNT CLOUD DRIVE"
+msgstr "클라우드 드라이브 마운트"
+
+msgid "USE SYSTEM SETTING"
+msgstr "시스템 설정 사용"
+
+msgid "A NEW UPDATE IS AVAILABLE"
+msgstr "새 업데이트를 사용할 수 있습니다"
+
+msgid "UPDATE MOONLIGHT GAMES"
+msgstr "문라이트 게임 업데이트"
+
+msgid "PAIR WITH SERVER"
+msgstr "서버 페어링"
+
+msgid "UNPAIR WITH SERVER"
+msgstr "서버 페어링 해제"
+
+msgid "SERVER IP"
+msgstr "서버 IP"
+
+msgid "PARING PIN"
+msgstr "페어링 PIN"
+
+msgid "PAIRING PIN"
+msgstr "페어링 PIN"
+
+msgid "Unable to connect to server"
+msgstr "서버에 연결할 수 없습니다"
+
+msgid "Succesfully paired with server"
+msgstr "서버와 성공적으로 페어링되었습니다"
+
+msgid "DEFAULT CPU GOVERNOR"
+msgstr "기본 CPU 제어"
+
+msgid "INTERACTIVE"
+msgstr "인터랙티브"
+
+msgid "ONDEMAND"
+msgstr "온디맨드"
+
+msgid "TATE MODE (ROTATED)"
+msgstr "수직 모드 (회전)"

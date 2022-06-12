@@ -1,8 +1,11 @@
 #!/bin/bash
 
+VER="1.0.39"
 if [ $HOSTNAME == "BATOCERA" ]; then
 	ESOS="batocera"
 	LC_PATH="/usr/share/locale/ko/LC_MESSAGES"
+	RA_CFG="/userdata/system/.config/retroarch/config"
+	RA_RMP="/userdata/system/.config/retroarch/config/remaps"
 	THEME_PATH="/userdata/themes"
 	BIOS_PATH="/userdata/bios"
 	RES_PATH="/usr/share/emulationstation/resources"
@@ -11,6 +14,8 @@ if [ $HOSTNAME == "BATOCERA" ]; then
 elif [ $HOSTNAME == "ANBERNIC" ]; then
 	ESOS="anbernic"
 	LC_PATH="/usr/share/locale/ko/LC_MESSAGES"
+	RA_CFG="/userdata/system/.config/retroarch/config"
+	RA_RMP="/userdata/system/.config/retroarch/config/remaps"			
 	THEME_PATH="/userdata/themes"
 	BIOS_PATH="/userdata/bios"
 	RES_PATH="/usr/share/emulationstation/resources"
@@ -19,6 +24,8 @@ elif [ $HOSTNAME == "ANBERNIC" ]; then
 elif [ $HOSTNAME == "EMUELEC" ]; then
 	ESOS="emuelec"
 	LC_PATH="/storage/.config/emuelec/configs/locale/ko/LC_MESSAGES"
+	RA_CFG="/storage/.config/retroarch/config"
+	RA_RMP="/storage/remappings"
 	THEME_PATH="/storage/.config/emulationstation/themes"
 	BIOS_PATH="/storage/roms/bios"
 	RES_PATH="/storage/.config/emulationstation/resources"
@@ -27,6 +34,8 @@ elif [ $HOSTNAME == "EMUELEC" ]; then
 elif cat /etc/*release | grep AmberELEC >/dev/null; then
 	ESOS="amberelec"
 	LC_PATH="/storage/.config/emulationstation/locale/ko/LC_MESSAGES"
+	RA_CFG="/storage/roms/gamedata/retroarch/config"
+	RA_RMP="/storage/roms/gamedata/remappings"
 	THEME_PATH="/storage/.config/emulationstation/themes"
 	BIOS_PATH="/storage/roms/bios"
 	RES_PATH="/storage/.config/emulationstation/resources"
@@ -35,6 +44,8 @@ elif cat /etc/*release | grep AmberELEC >/dev/null; then
 elif cat /etc/*release | grep JELOS >/dev/null; then
 	ESOS="jelos"
 	LC_PATH="/storage/.config/emulationstation/locale/ko/LC_MESSAGES"
+	RA_CFG="/storage/.config/retroarch/config"
+	RA_RMP="/storage/remappings"
 	THEME_PATH="/storage/.config/emulationstation/themes"
 	BIOS_PATH="/storage/roms/bios"
 	RES_PATH="/storage/.config/emulationstation/resources"
@@ -43,6 +54,8 @@ elif cat /etc/*release | grep JELOS >/dev/null; then
 elif [ -d /home/ark ]; then
 	ESOS="arkos"
 	LC_PATH="/usr/bin/emulationstation/resources/locale/ko"
+	RA_CFG="/home/ark/.config/retroarch/config"
+	RA_RMP="/home/ark/.config/retroarch/config/remaps"
 	THEME_PATH="/roms/themes"
 	BIOS_PATH="/roms/bios"
 	RES_PATH="/usr/bin/emulationstation/resources"
@@ -54,7 +67,6 @@ else
 fi
 
 TEMP="ddccpp"
-VER="1.0.4"
 HEIGHT=18
 WIDTH=60
 SEL_HEIGHT=12
@@ -101,8 +113,9 @@ fi
 
 OPTIONS=(1 "Apply EmulationStation UI Korean patch"
 	2 "Apply Retroarch UI Korean patch"
-	3 "Apply Retroarch Vertical arcade settings"
-	4 "Install Anbernic Epic noir OE theme"
+	3 "Install Anbernic Epic noir OE theme"
+	4 "Install Retroarch Vertical arcade settings"
+	5 "Remove Retroarch Vertical arcade settings"
 	5 "Install PPSSPP Patched font"
 	6 "Restore PPSSPP Original font"
 	7 "Change all platform integer scales"
@@ -297,7 +310,40 @@ case $SEL in
 		;;
 
 	3)
-		#Apply Retroarch Vertical arcade settings
+		#Install Anbernic Epic noir OE theme
+		
+		if [ $ESOS == "arkos" ]; then
+			echo "ERROR: This operating system is not supported."
+			dcContinue
+		fi
+
+		if [ ! -d $THEME_PATH ]; then
+			echo "ERROR: Failed to find Themes directory."
+			dcContinue
+		fi
+
+		THEME_NAME="es-theme-anbernic-dc"
+		
+		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-theme-anbernic-dc/archive/refs/heads/main.zip
+		unzip ./$TEMP/main.zip -d ./$TEMP
+		rm -rf $THEME_PATH/$THEME_NAME
+		cp -rf ./$TEMP/es-theme-anbernic-dc* $THEME_PATH/$THEME_NAME
+		
+		if [ $HOSTNAME == "BATOCERA" ] || [ $HOSTNAME == "ANBERNIC" ]; then
+			sed -i 's/name="ThemeSet" value=".*"/name="ThemeSet" value="es-theme-anbernic-dc"/g' /userdata/system/configs/emulationstation/es_settings.cfg
+		elif [ $ESOS == "arkos" ]; then
+			sed -i 's/name="ThemeSet" value=".*"/name="ThemeSet" value="es-theme-anbernic-dc"/g' /home/ark/.emulationstation/es_settings.cfg
+		else
+			sed -i 's/name="ThemeSet" value=".*"/name="ThemeSet" value="es-theme-anbernic-dc"/g' /storage/.config/emulationstation/es_settings.cfg
+		fi
+
+		echo -e "\nProcessing complete."
+		dcESreboot
+		dcContinue
+		;;
+
+	4)
+		#Install Retroarch Vertical arcade settings
 
 		CORE=("FinalBurn Neo"
 			"FB Alpha"
@@ -387,34 +433,21 @@ done
 		for i in ${SEL[@]}
 		do
 			TCORE="${CORE[$((i-1))]}"
-			if [ $HOSTNAME == "BATOCERA" ] || [ $HOSTNAME == "ANBERNIC" ]; then
-				TCORE_CFG="/userdata/system/.config/retroarch/config"
-				TCORE_RMP="/userdata/system/.config/retroarch/config/remaps"
-			elif [ $ESOS == "amberelec" ]; then
-				TCORE_CFG="/storage/roms/gamedata/retroarch/config"
-				TCORE_RMP="/storage/roms/gamedata/remappings"
-			elif [ $ESOS == "jelos" ] || [ $HOSTNAME == "EMUELEC" ]; then
-				TCORE_CFG="/storage/.config/retroarch/config"
-				TCORE_RMP="/storage/remappings"
-			elif [ $ESOS == "arkos" ]; then
-				TCORE_CFG="/home/ark/.config/retroarch/config"
-				TCORE_RMP="/home/ark/.config/retroarch/config/remaps"
-			fi
 
-			rm -rf "$TCORE_CFG/$TCORE"
-			rm -rf "$TCORE_RMP/$TCORE"
-			mkdir -p "$TCORE_CFG/$TCORE"
-			mkdir -p "$TCORE_RMP/$TCORE"
+			rm -rf "$RA_CFG/$TCORE"
+			rm -rf "$RA_RMP/$TCORE"
+			mkdir -p "$RA_CFG/$TCORE"
+			mkdir -p "$RA_RMP/$TCORE"
 			
 			if [[ $TCORE == *"MAME"* ]]; then
 				echo -e "Copying config file to $TCORE..."
-				cp -f ./$TEMP/mam/* "$TCORE_CFG/$TCORE/"
+				cp -f ./$TEMP/mam/* "$RA_CFG/$TCORE/"
 			else
 				echo -e "Copying config file to $TCORE..."
-				cp -f ./$TEMP/fbn/* "$TCORE_CFG/$TCORE/"
+				cp -f ./$TEMP/fbn/* "$RA_CFG/$TCORE/"
 			fi
 			echo -e "Copying remapping file to $TCORE..."
-			cp -f ./$TEMP/*.rmp "$TCORE_RMP/$TCORE/"
+			cp -f ./$TEMP/*.rmp "$RA_RMP/$TCORE/"
 
 		done
 
@@ -422,40 +455,30 @@ done
 		dcContinue
 		;;
 
-	4)
-		#Install Anbernic Epic noir OE theme
-		
-		if [ $ESOS == "arkos" ]; then
-			echo "ERROR: This operating system is not supported."
-			dcContinue
-		fi
+	5)
+		#Remove Retroarch Vertical arcade settings
+		;;
 
-		if [ ! -d $THEME_PATH ]; then
-			echo "ERROR: Failed to find Themes directory."
-			dcContinue
-		fi
-
-		THEME_NAME="es-theme-anbernic-dc"
+		CORE=("FinalBurn Neo"
+			"FB Alpha"
+			"FB Alpha 2012"
+			"MAME"
+			"MAME 2000"
+			"MAME 2003-Plus"
+			"MAME 2010"
+			"MAME 2015"
+		)
 		
-		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-theme-anbernic-dc/archive/refs/heads/main.zip
-		unzip ./$TEMP/main.zip -d ./$TEMP
-		rm -rf $THEME_PATH/$THEME_NAME
-		cp -rf ./$TEMP/es-theme-anbernic-dc* $THEME_PATH/$THEME_NAME
-		
-		if [ $HOSTNAME == "BATOCERA" ] || [ $HOSTNAME == "ANBERNIC" ]; then
-			sed -i 's/name="ThemeSet" value=".*"/name="ThemeSet" value="es-theme-anbernic-dc"/g' /userdata/system/configs/emulationstation/es_settings.cfg
-		elif [ $ESOS == "arkos" ]; then
-			sed -i 's/name="ThemeSet" value=".*"/name="ThemeSet" value="es-theme-anbernic-dc"/g' /home/ark/.emulationstation/es_settings.cfg
-		else
-			sed -i 's/name="ThemeSet" value=".*"/name="ThemeSet" value="es-theme-anbernic-dc"/g' /storage/.config/emulationstation/es_settings.cfg
-		fi
+		for ((i = 0; i < ${CORE[@]}; i++))
+		do
+			echo "${CORE[$i]}"
+		done
 
 		echo -e "\nProcessing complete."
-		dcESreboot
 		dcContinue
 		;;
 
-	5)
+	6)
 		#Install PPSSPP Patched font
 		
 		if [ ! -d $PSPFONT_PATH ]; then
@@ -478,7 +501,7 @@ done
 		dcContinue
 		;;
 	
-	6)
+	7)
 		#Restore PPSSPP Original font
 		
 		if [ ! -d $PSPFONT_PATH ]; then
@@ -502,7 +525,7 @@ done
 		dcContinue
 		;;
 	
-	7)
+	8)
 		#Change all platform integer scales
 		
 		if [ $ESOS != "amberelec" ] && [ $ESOS != "jelos" ]; then
