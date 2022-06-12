@@ -479,11 +479,11 @@ echo -e "."
 		for i in "${CORE[@]}"
 		do
 			if [ -d "$RA_CFG/${i}" ]; then
-				rm -f "$RA_CFG/${i}"
+				rm -rf "$RA_CFG/${i}"
 			fi
 
 			if [ -d "$RA_RMP/${i}" ]; then
-				rm -f "$RA_RMP/${i}"
+				rm -rf "$RA_RMP/${i}"
 			fi
 		done
 
