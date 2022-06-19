@@ -4902,3 +4902,6 @@ msgstr "온디맨드"
 
 msgid "TATE MODE (ROTATED)"
 msgstr "수직 모드 (회전)"
+
+msgid "ENABLE WIFI POWERSAVE"
+msgstr "WIFI 절전 활성화"
