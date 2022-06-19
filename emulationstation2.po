@@ -4826,7 +4826,7 @@ msgstr ""
 "동의하거나 아니오를 눌러 취소합니다."
 
 msgid "ENABLE INTERNAL WIFI DEVICE"
-msgstr "내부 WIFI 장치 활성화"
+msgstr "WIFI 장치 활성화"
 
 msgid "SYSTEM UPDATE"
 msgstr "시스템 업데이트"
