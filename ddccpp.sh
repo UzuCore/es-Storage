@@ -14,8 +14,8 @@ if [ $HOSTNAME == "BATOCERA" ]; then
 elif [ $HOSTNAME == "ANBERNIC" ]; then
 	ESOS="anbernic"
 	LC_PATH="/usr/share/locale/ko/LC_MESSAGES"
-	RA_CFG="/userdata/system/.config/retroarch/config"
-	RA_RMP="/userdata/system/.config/retroarch/config/remaps"			
+	RA_CFG="/userdata/system/configs/retroarch/config"
+	RA_RMP="/userdata/system/configs/retroarch/config/remaps"			
 	THEME_PATH="/userdata/themes"
 	BIOS_PATH="/userdata/bios"
 	RES_PATH="/usr/share/emulationstation/resources"
