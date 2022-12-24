@@ -41,7 +41,7 @@ elif cat /etc/*release | grep AmberELEC >/dev/null; then
 	RES_PATH="/storage/.config/emulationstation/resources"
 	PSPFONT_PATH="/storage/roms/gamedata/ppsspp/assets/flash0/font"
 
-elif cat /etc/*release | grep JELOS >/dev/null; then
+elif cat /etc/*release | grep jelos >/dev/null; then
 	ESOS="jelos"
 	LC_PATH="/storage/.config/emulationstation/locale/ko/LC_MESSAGES"
 	RA_CFG="/storage/.config/retroarch/config"
