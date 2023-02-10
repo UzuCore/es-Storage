@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VER="1.0.63"
+VER="1.0.65"
 if [ $HOSTNAME == "BATOCERA" ]; then
 	ESOS="batocera"
 	LC_PATH="/usr/share/locale/ko/LC_MESSAGES"
