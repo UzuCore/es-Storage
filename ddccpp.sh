@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VER="1.0.65"
+VER="1.0.66"
 if [ $HOSTNAME == "BATOCERA" ]; then
 	ESOS="batocera"
 	LC_PATH="/usr/share/locale/ko/LC_MESSAGES"
@@ -138,8 +138,7 @@ OPTIONS=(1 "Apply EmulationStation UI Korean patch"
 	5 "Remove Retroarch Vertical arcade settings"
 	6 "Install PPSSPP Patched font"
 	7 "Restore PPSSPP Original font"
-	8 "Change all platform integer scales"
-	B "Install Minimal Support pack"
+	B "Install B-Support pack"
 	E "Restart EmulationStation"
 	R "Reboot System"
 	Q "Quit")
@@ -544,50 +543,6 @@ echo -e "."
 			anbernic-save-overlay
 		fi
 
-		echo -e "\nProcessing complete."
-		dcContinue
-		;;
-	
-	8)
-		#Change all platform integer scales
-		
-		if [ $ESOS != "amberelec" ] && [ $ESOS != "jelos" ]; then
-			echo "ERROR: This operating system is not supported."
-			dcContinue
-		fi
-
-		if [ $ESOS == "amberelec" ]; then
-			SCONF="/storage/.config/distribution/configs/distribution.conf"
-		elif [ $ESOS == "jelos" ] || [ $ESOS == "UnofficialOS" ]; then
-			SCONF="/storage/.config/system/configs/system.cfg"
-		fi
-
-		if [ ! -f $SCONF ]; then
-			echo "ERROR: Failed to find System Config."
-			dcContinue
-		fi
-
-		OPTIONS=(1 "ON"
-			2 "OFF")
-
-		SEL=$(dialog --clear \
-			--backtitle "$BACKTITLE" \
-			--title "$TITLE" \
-			--menu "$MENU" \
-			$HEIGHT $WIDTH $SEL_HEIGHT \
-			"${OPTIONS[@]}" \
-			2>&1 >/dev/tty)
-		
-		clear
-		case $SEL in
-			1)
-				sed -i 's/integerscale=.*/integerscale=1/g' $SCONF
-				;;
-			2)
-				sed -i 's/integerscale=.*/integerscale=0/g' $SCONF
-				;;
-		esac
-		
 		echo -e "\nProcessing complete."
 		dcContinue
 		;;
