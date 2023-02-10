@@ -51,6 +51,16 @@ elif cat /etc/*release | grep jelos >/dev/null; then
 	RES_PATH="/storage/.config/emulationstation/resources"
 	PSPFONT_PATH="/storage/.config/ppsspp/assets/flash0/font"
 
+elif cat /etc/*release | grep UnofficialOS >/dev/null; then
+	ESOS="UnofficialOS"
+	LC_PATH="/storage/.config/emulationstation/locale/ko/LC_MESSAGES"
+	RA_CFG="/storage/.config/retroarch/config"
+	RA_RMP="/storage/remappings"
+	THEME_PATH="/storage/.config/emulationstation/themes"
+	BIOS_PATH="/storage/roms/bios"
+	RES_PATH="/storage/.config/emulationstation/resources"
+	PSPFONT_PATH="/storage/.config/ppsspp/assets/flash0/font"
+
 elif [ -d /home/ark ]; then
 	ESOS="arkos"
 	LC_PATH="/usr/bin/emulationstation/resources/locale/ko"
@@ -238,7 +248,7 @@ case $SEL in
 		elif [ $ESOS == "amberelec" ]; then
 			sed -i 's/system.language=.*/system.language=ko_KR/g' /storage/.config/distribution/configs/distribution.conf
 
-		elif [ $ESOS == "jelos" ]; then
+		elif [ $ESOS == "jelos" ] || [ $ESOS == "UnofficialOS" ]; then
 			sed -i 's/system.language=.*/system.language=ko_KR/g' /storage/.config/system/configs/system.cfg
 		
 		elif [ $ESOS == "arkos" ]; then
@@ -320,7 +330,7 @@ case $SEL in
 			SCONF=""
 			if [ $ESOS == "amberelec" ]; then
 				SCONF="/storage/.config/distribution/configs/distribution.conf"
-			elif [ $ESOS == "jelos" ]; then
+			elif [ $ESOS == "jelos" ] || [ $ESOS == "UnofficialOS" ]; then
 				SCONF="/storage/.config/system/configs/system.cfg"
 			fi
 			
@@ -548,7 +558,7 @@ echo -e "."
 
 		if [ $ESOS == "amberelec" ]; then
 			SCONF="/storage/.config/distribution/configs/distribution.conf"
-		elif [ $ESOS == "jelos" ]; then
+		elif [ $ESOS == "jelos" ] || [ $ESOS == "UnofficialOS" ]; then
 			SCONF="/storage/.config/system/configs/system.cfg"
 		fi
 
