@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VER="1.0.71"
+VER="1.0.74"
 if [ $HOSTNAME == "BATOCERA" ]; then
 	ESOS="batocera"
 	LC_PATH="/usr/share/locale/ko/LC_MESSAGES"
@@ -551,16 +551,16 @@ echo -e "."
 	8)
 		#Other settings
 
-		if [ $HOSTNAME != "JELOS" ] || [ $HOSTNAME != "UnofficialOS" ]; then
+		if [ $HOSTNAME == "JELOS" ] || [ $HOSTNAME == "UnofficialOS" ]; then
+			sed -i 's/system.timezone=.*/system.timezone=Asia/Seoul/g' /storage/.config/system/configs/system.cfg
+
+			echo -e "\nProcessing complete."
+			dcESreboot
+			dcContinue
+		else
 			echo "ERROR: This operating system is not supported."
 			dcContinue
 		fi
-
-		sed -i 's/system.timezone=.*/system.timezone=Asia/Seoul/g' /storage/.config/system/configs/system.cfg
-
-		echo -e "\nProcessing complete."
-		dcESreboot
-		dcContinue
 		;;
 
 	B)
