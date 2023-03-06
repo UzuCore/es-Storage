@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VER="1.0.7"
+VER="1.0.71"
 if [ $HOSTNAME == "BATOCERA" ]; then
 	ESOS="batocera"
 	LC_PATH="/usr/share/locale/ko/LC_MESSAGES"
@@ -551,7 +551,7 @@ echo -e "."
 	8)
 		#Other settings
 
-		if [ $HOSTNAME != "JELOS" ] && [ $HOSTNAME != "UnofficialOS" ]; then
+		if [ $HOSTNAME != "JELOS" ] || [ $HOSTNAME != "UnofficialOS" ]; then
 			echo "ERROR: This operating system is not supported."
 			dcContinue
 		fi
