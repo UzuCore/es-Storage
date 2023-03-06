@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VER="1.0.77"
+VER="1.0.79"
 if [ $HOSTNAME == "BATOCERA" ]; then
 	ESOS="batocera"
 	LC_PATH="/usr/share/locale/ko/LC_MESSAGES"
@@ -556,7 +556,7 @@ echo -e "."
 			dcContinue
 		fi
 
-		sed -i 's/system.timezone=.*/system.timezone=Asia/Seoul/g' /storage/.config/system/configs/system.cfg
+		sed -i 's/system.timezone=.*/system.timezone=Asia\/Seoul/g' /storage/.config/system/configs/system.cfg
 
 		echo -e "\nProcessing complete."
 		dcESreboot
