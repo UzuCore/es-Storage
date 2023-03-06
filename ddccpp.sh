@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VER="1.0.66"
+VER="1.0.7"
 if [ $HOSTNAME == "BATOCERA" ]; then
 	ESOS="batocera"
 	LC_PATH="/usr/share/locale/ko/LC_MESSAGES"
@@ -138,6 +138,7 @@ OPTIONS=(1 "Apply EmulationStation UI Korean patch"
 	5 "Remove Retroarch Vertical arcade settings"
 	6 "Install PPSSPP Patched font"
 	7 "Restore PPSSPP Original font"
+	8 "Other settings"
 	B "Install B-Support pack"
 	E "Restart EmulationStation"
 	R "Reboot System"
@@ -369,8 +370,8 @@ case $SEL in
 		
 		if [ $HOSTNAME == "BATOCERA" ] || [ $HOSTNAME == "ANBERNIC" ]; then
 			sed -i 's/name="ThemeSet" value=".*"/name="ThemeSet" value="es-theme-anbernic-dc"/g' /userdata/system/configs/emulationstation/es_settings.cfg
-		elif [ $ESOS == "arkos" ]; then
-			sed -i 's/name="ThemeSet" value=".*"/name="ThemeSet" value="es-theme-anbernic-dc"/g' /home/ark/.emulationstation/es_settings.cfg
+		#elif [ $ESOS == "arkos" ]; then
+		#	sed -i 's/name="ThemeSet" value=".*"/name="ThemeSet" value="es-theme-anbernic-dc"/g' /home/ark/.emulationstation/es_settings.cfg
 		else
 			sed -i 's/name="ThemeSet" value=".*"/name="ThemeSet" value="es-theme-anbernic-dc"/g' /storage/.config/emulationstation/es_settings.cfg
 		fi
@@ -544,6 +545,21 @@ echo -e "."
 		fi
 
 		echo -e "\nProcessing complete."
+		dcContinue
+		;;
+
+	8)
+		#Other settings
+
+		if [ $HOSTNAME != "JELOS" ] && [ $HOSTNAME != "UnofficialOS" ]; then
+			echo "ERROR: This operating system is not supported."
+			dcContinue
+		fi
+
+		sed -i 's/system.timezone=.*/system.timezone=Asia/Seoul/g' /storage/.config/system/configs/system.cfg
+
+		echo -e "\nProcessing complete."
+		dcESreboot
 		dcContinue
 		;;
 
