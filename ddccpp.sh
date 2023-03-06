@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VER="1.0.79"
+VER="1.0.8"
 if [ $HOSTNAME == "BATOCERA" ]; then
 	ESOS="batocera"
 	LC_PATH="/usr/share/locale/ko/LC_MESSAGES"
@@ -267,12 +267,12 @@ case $SEL in
 	2)
 		#Apply Retroarch UI Korean patch
 
-		if [ $HOSTNAME == "EMUELEC" ]; then
+		if [ $HOSTNAME == "EMUELEC" ] || [ $HOSTNAME == "BATOCERA" ]; then
 			echo "ERROR: This operating system is not supported."
 			dcContinue
 		fi
 
-		if [ $HOSTNAME == "BATOCERA" ] || [ $HOSTNAME == "ANBERNIC" ]; then
+		if [ $HOSTNAME == "ANBERNIC" ]; then
 			LCONF="/userdata/system/$ESOS.conf"
 
 			if [ ! -f "/userdata/system/configs/retroarch/retroarchcustom.cfg" ]; then
