@@ -551,7 +551,7 @@ echo -e "."
 	8)
 		#Other settings
 
-		if [ $ESOS!="jelos" ] && [ $ESOS!="UnofficialOS" ]; then
+		if [ $ESOS != "jelos" ] && [ $ESOS != "UnofficialOS" ]; then
 			echo "ERROR: This operating system is not supported."
 			dcContinue
 		fi
