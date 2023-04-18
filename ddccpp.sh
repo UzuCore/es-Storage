@@ -167,10 +167,10 @@ case $SEL in
 			dcContinue
 		fi
 		
-		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/opensans_hebrew_condensed_light.ttf
-		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/opensans_hebrew_condensed_regular.ttf
-		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/emulationstation2.po
-		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/emulationstation2.mo
+		wget --no-hsts -P ./$TEMP https://github.com/UzuCore/es-Storage/raw/main/opensans_hebrew_condensed_light.ttf
+		wget --no-hsts -P ./$TEMP https://github.com/UzuCore/es-Storage/raw/main/opensans_hebrew_condensed_regular.ttf
+		wget --no-hsts -P ./$TEMP https://github.com/UzuCore/es-Storage/raw/main/emulationstation2.po
+		wget --no-hsts -P ./$TEMP https://github.com/UzuCore/es-Storage/raw/main/emulationstation2.mo
 		
 		if [ $ESOS != "arkos" ]; then
 			cp -f ./$TEMP/emulationstation2.* $LC_PATH/
@@ -178,7 +178,7 @@ case $SEL in
 		else
 			cp -f ./$TEMP/emulationstation2.po $LC_PATH/
 
-			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/NotoSansKR-Light.otf
+			wget --no-hsts -P ./$TEMP https://github.com/UzuCore/es-Storage/raw/main/NotoSansKR-Light.otf
 			if [ -f "$THEME_PATH/es-theme-arkos-carbon/art/Cabin-Regular.ttf" ]; then
 				cp -f ./$TEMP/opensans_hebrew_condensed_light.ttf $THEME_PATH/es-theme-arkos-carbon/art/Cabin-Regular.ttf
 			fi
@@ -241,7 +241,7 @@ case $SEL in
 			sed -i 's/system.language=.*/system.language=ko_KR/g' /userdata/system/$ESOS.conf
 
 			cp -f ./$TEMP/opensans_hebrew_condensed_light.ttf /usr/share/fonts/truetype/nanum/NanumMyeongjo.ttf
-			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/notice.pdf
+			wget --no-hsts -P ./$TEMP https://github.com/UzuCore/es-Storage/raw/main/notice.pdf
 			cp -f ./$TEMP/notice.pdf /usr/share/anbernic/doc/notice.pdf
 			anbernic-save-overlay
 
@@ -280,7 +280,7 @@ case $SEL in
 				dcContinue
 			fi
 
-			wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/font.ttf
+			wget --no-hsts -P ./$TEMP https://github.com/UzuCore/es-Storage/raw/main/font.ttf
 
 			if [ ! -d "/userdata/system/configs/retroarch/assets" ]; then
 				mkdir -m 777 -p /userdata/system/configs/retroarch/assets
@@ -363,7 +363,7 @@ case $SEL in
 
 		THEME_NAME="es-theme-anbernic-dc"
 		
-		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-theme-anbernic-dc/archive/refs/heads/main.zip
+		wget --no-hsts -P ./$TEMP https://github.com/UzuCore/es-theme-anbernic-dc/archive/refs/heads/main.zip
 		unzip ./$TEMP/main.zip -d ./$TEMP
 		rm -rf $THEME_PATH/$THEME_NAME
 		cp -rf ./$TEMP/es-theme-anbernic-dc* $THEME_PATH/$THEME_NAME
@@ -509,8 +509,8 @@ echo -e "."
 			dcContinue
 		fi
 
-		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/kr0.pgf
-		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/jpn0.pgf
+		wget --no-hsts -P ./$TEMP https://github.com/UzuCore/es-Storage/raw/main/kr0.pgf
+		wget --no-hsts -P ./$TEMP https://github.com/UzuCore/es-Storage/raw/main/jpn0.pgf
 		cp -f ./$TEMP/*.pgf $PSPFONT_PATH/
 
 		if [ $HOSTNAME == "BATOCERA" ]; then
@@ -532,8 +532,8 @@ echo -e "."
 			dcContinue
 		fi
 		
-		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/kr0.original.pgf
-		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/es-Storage/raw/main/jpn0.original.pgf
+		wget --no-hsts -P ./$TEMP https://github.com/UzuCore/es-Storage/raw/main/kr0.original.pgf
+		wget --no-hsts -P ./$TEMP https://github.com/UzuCore/es-Storage/raw/main/jpn0.original.pgf
 		cp -f ./$TEMP/kr0.original.pgf $PSPFONT_PATH/kr0.pgf
 		cp -f ./$TEMP/jpn0.original.pgf $PSPFONT_PATH/jpn0.pgf
 		
@@ -571,7 +571,7 @@ echo -e "."
 			dcContinue
 		fi
 
-		wget --no-hsts -P ./$TEMP https://github.com/byunjaeil/minimal-Bios/archive/refs/heads/main.zip
+		wget --no-hsts -P ./$TEMP https://github.com/UzuCore/minimal-Bios/archive/refs/heads/main.zip
 		unzip -q ./$TEMP/main.zip -d ./$TEMP
 		cp -rf ./$TEMP/minimal-Bios-main/* $BIOS_PATH
 
